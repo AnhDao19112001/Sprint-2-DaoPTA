@@ -1,7 +1,10 @@
 import "./DetailProduct.css"
+import Header from "./Header";
+import Footer from "./Footer";
 function DetailProduct() {
     return (
         <>
+            <Header/>
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-10">
@@ -234,6 +237,7 @@ function DetailProduct() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

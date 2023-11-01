@@ -1,8 +1,10 @@
 import "./Cart.css"
+import Header from "./Header";
+import Footer from "./Footer";
 function Cart() {
     return(
         <>
-
+            <Header />
             <section className="h-custom" style={{backgroundColor: "#eee", paddingBottom: "70%"}}>
                 <div className="container h-100 py-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -238,6 +240,7 @@ function Cart() {
                     </div>
                 </div>
             </section>
+            <Footer/>
         </>
     )
 }
