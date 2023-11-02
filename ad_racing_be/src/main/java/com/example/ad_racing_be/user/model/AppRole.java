@@ -10,16 +10,16 @@ public class AppRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name_role;
+    private String nameRole;
     private Boolean flagDeleted;
     @OneToMany(mappedBy = "appRole")
     private Set<UserRole> userRoles;
     public AppRole() {
     }
 
-    public AppRole(Long id, String name_role, Boolean flagDeleted, Set<UserRole> userRoles) {
+    public AppRole(Long id, String nameRole, Boolean flagDeleted, Set<UserRole> userRoles) {
         this.id = id;
-        this.name_role = name_role;
+        this.nameRole = nameRole;
         this.flagDeleted = flagDeleted;
         this.userRoles = userRoles;
     }
@@ -32,12 +32,12 @@ public class AppRole {
         this.id = id;
     }
 
-    public String getName_role() {
-        return name_role;
+    public String getNameRole() {
+        return nameRole;
     }
 
-    public void setName_role(String name_role) {
-        this.name_role = name_role;
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
 
     public Boolean getFlagDeleted() {
