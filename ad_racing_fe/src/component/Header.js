@@ -1,93 +1,143 @@
-import "../css/assets/css/bootstrap.min.css";
-import "../css/assets/css/templatemo.css";
-import "../css/assets/css/custom.css";
-import "../css/assets/css/fontawesome.min.css";
+import "bootstrap/dist/css/bootstrap.css"
 function Header() {
     return (
         <>
-            <div>
-                <nav className="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
-                    <div className="container text-light">
-                        <div className="w-100 d-flex justify-content-between">
-                            <div>
-                                <i className="fa fa-envelope mx-2"></i>
-                                <a className="navbar-sm-brand text-light text-decoration-none"
-                                   href="mailto:info@company.com">phantaanhdao@gmail.com</a>
-                                <i className="fa fa-phone mx-2"></i>
-                                <a className="navbar-sm-brand text-light text-decoration-none"
-                                   href="tel:010-020-0340">0931997293</a>
-                            </div>
-                            <div>
-                                <a className="text-light" href="https://fb.com/templatemo" target="_blank"
-                                   rel="sponsored"><i className="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-                                <a className="text-light" href="https://www.instagram.com/" target="_blank"><i
-                                    className="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-                                <a className="text-light" href="https://twitter.com/" target="_blank"><i
-                                    className="fab fa-twitter fa-sm fa-fw me-2"></i></a>
-                                <a className="text-light" href="https://www.linkedin.com/" target="_blank"><i
-                                    className="fab fa-linkedin fa-sm fa-fw"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-
-                <nav className="navbar navbar-expand-lg navbar-light shadow bg-light">
-                    <div className="container d-flex justify-content-between align-items-center">
-
-                        <a className="navbar-brand text-primary logo h1 align-self-center " href="">
-                            AD RACING
+            {/* Navbar */}
+            <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+                {/* Container wrapper */}
+                <div className="container-fluid">
+                    {/* Toggle button */}
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <i className="fas fa-bars" />
+                    </button>
+                    {/* Collapsible wrapper */}
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                        {/* Navbar brand */}
+                        <a className="navbar-brand mt-2 mt-lg-0" href="#">
+                            <img
+                                src="AD_RACING_logo.png"
+                                height={70}
+                                width={100}
+                                alt="AD RACING"
+                                loading="lazy"
+                            />
                         </a>
-
-                        <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div
-                            className="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                            id="templatemo_main_nav">
-                            <div className="flex-fill">
-                                <ul className="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="index.html">Trang chủ</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">About</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Shop</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Liên hệ</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="navbar align-self-center d-flex">
-                                <div className="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" id="inputMobileSearch"
-                                               placeholder="Search ..."/>
-                                        <div className="input-group-text">
-                                            <i className="fa fa-fw fa-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a className="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
-                                   data-bs-target="#templatemo_search">
-                                    <i className="fa fa-fw fa-search text-dark mr-2"></i>
+                        {/* Left links */}
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Dashboard
                                 </a>
-                                <a className="nav-icon position-relative text-decoration-none" href="#">
-                                    <i className="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                                    <span
-                                        className="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Team
                                 </a>
-                            </div>
-                        </div>
-
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">
+                                    Projects
+                                </a>
+                            </li>
+                        </ul>
+                        {/* Left links */}
                     </div>
-                </nav>
-            </div>
+                    {/* Collapsible wrapper */}
+                    {/* Right elements */}
+                    <div className="d-flex align-items-center">
+                        {/* Icon */}
+                        <a className="text-reset me-3" href="#">
+                            <i className="fas fa-shopping-cart" />
+                        </a>
+                        {/* Notifications */}
+                        <div className="dropdown">
+                            <a
+                                className="text-reset me-3 dropdown-toggle hidden-arrow"
+                                href="#"
+                                id="navbarDropdownMenuLink"
+                                role="button"
+                                data-mdb-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <i className="fas fa-bell" />
+                                <span className="badge rounded-pill badge-notification bg-danger">
+                1
+              </span>
+                            </a>
+                            <ul
+                                className="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="navbarDropdownMenuLink"
+                            >
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Some news
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Another news
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Something else here
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        {/* Avatar */}
+                        <div className="dropdown">
+                            <a
+                                className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                                href="#"
+                                id="navbarDropdownMenuAvatar"
+                                role="button"
+                                data-mdb-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <img
+                                    src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                    className="rounded-circle"
+                                    height={25}
+                                    alt="Black and White Portrait of a Man"
+                                    loading="lazy"
+                                />
+                            </a>
+                            <ul
+                                className="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="navbarDropdownMenuAvatar"
+                            >
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        My profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {/* Right elements */}
+                </div>
+                {/* Container wrapper */}
+            </nav>
+            {/* Navbar */}
         </>
     )
 }

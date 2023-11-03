@@ -1,14 +1,12 @@
 package com.example.ad_racing_be.user.dto;
 
 import com.example.ad_racing_be.user.model.UserRole;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.OneToMany;
 import java.util.Set;
 
-public class AppRoleDto implements Validator {
+public class AppUserDto implements Validator {
     private Long id;
     private String userName;
     private String pass;
@@ -22,10 +20,10 @@ public class AppRoleDto implements Validator {
     private Boolean flagOnline;
     private Set<UserRole> userRoles;
 
-    public AppRoleDto() {
+    public AppUserDto() {
     }
 
-    public AppRoleDto(Long id, String userName, String pass, String confirmPassword, String fullName, String email, String phone, String address, String image, Boolean flagDeleted, Boolean flagOnline, Set<UserRole> userRoles) {
+    public AppUserDto(Long id, String userName, String pass, String confirmPassword, String fullName, String email, String phone, String address, String image, Boolean flagDeleted, Boolean flagOnline, Set<UserRole> userRoles) {
         this.id = id;
         this.userName = userName;
         this.pass = pass;

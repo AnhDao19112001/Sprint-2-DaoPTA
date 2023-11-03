@@ -52,13 +52,13 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
      * author: DaoPTA
      * workday: 02/11/2023
      * method: updateAppUserIsOffline
-     * @param appUser
+     * @param userName userName
      * @return
      */
     @Modifying
     @Transactional
     @Query(value = "UPDATE app_user set flag_online = 0 WHERE user_name = :userName",nativeQuery = true)
-    Integer updateAppUserIsOffline (AppUser appUser);
+    Integer updateAppUserIsOffline (@Param("userName") String userName);
 
     /**
      * author: DaoPTA

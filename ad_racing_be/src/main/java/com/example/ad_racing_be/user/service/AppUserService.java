@@ -56,11 +56,11 @@ public class AppUserService implements IAppUserService {
 
     @Override
     public Boolean logout(String userName) {
-        return null;
+        return appUserRepository.updateAppUserIsOffline(userName) > 0;
     }
 
     @Override
     public Long findAppUserIdByUserName(String userName) {
-        return null;
+        return appUserRepository.findIdByUserName(userName);
     }
 }

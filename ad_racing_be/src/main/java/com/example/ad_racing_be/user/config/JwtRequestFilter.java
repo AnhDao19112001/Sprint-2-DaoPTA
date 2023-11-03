@@ -1,6 +1,6 @@
 package com.example.ad_racing_be.user.config;
 
-import com.example.retro_care.user.service.IAppUserService;
+import com.example.ad_racing_be.user.service.IAppUserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

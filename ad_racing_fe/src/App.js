@@ -8,10 +8,10 @@ import Footer from "./component/Footer";
 function App() {
   return (
     // <Login />
-      <DetailProduct/>
+    //   <DetailProduct/>
     //   <Header />
     //   <Footer/>
-    //   <Cart />
+      <Cart />
   );
 }
 
