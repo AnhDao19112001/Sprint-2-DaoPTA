@@ -37,13 +37,7 @@ public class AppUserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     private static final String LOGIN_FAILED = "Đăng nhập thất bại";
-    /**
-     * method loginByAccount
-     * Creater NhatNHH
-     * Date 15-09-2023
-     * param AppUserDto appUserDto, BindingResult bindingResult
-     * return JwtResponse(jwtToken)
-     */
+
     @PostMapping("/login-by-username")
     public ResponseEntity<Object> loginByAccount(@Valid @RequestBody AppUserDto appUserDto,
                                             BindingResult bindingResult) {
@@ -81,12 +75,6 @@ public class AppUserController {
 
     }
 
-//    /**
-//     * method registerByCustomer
-//     * Creater NhatNHH
-//     * Date 15-09-2023
-//     * param AppUserDto appUserDto, BindingResult bindingResult
-//     * return ResponseEntity.ok(Register Success)
 //     */
 //    @PostMapping("/register-by-customer")
 //    public ResponseEntity<Object> registerByCustomer(@Valid @RequestBody AppUserDto appUserDto,
@@ -124,13 +112,7 @@ public class AppUserController {
 //        return ResponseEntity.ok("Đăng ký thành công, vui lòng bấm nút đăng nhập");
 //    }
 //
-//    /**
-//     * method registerByManager
-//     * Creater NhatNHH
-//     * Date 15-09-2023
-//     * param String userName
-//     * return ResponseEntity.ok(Register Success)
-//     */
+
 //    @PostMapping("/register-by-manager")
 //    public ResponseEntity<Object> registerByManager(@RequestParam String userName) {
 //
@@ -158,13 +140,6 @@ public class AppUserController {
 //        return ResponseEntity.ok("Đăng ký thành công");
 //    }
 
-    /**
-     * method logout
-     * Creater NhatNHH
-     * Date 15-09-2023
-     * param String userName
-     * return ResponseEntity.ok(Logout Success)
-     */
     @GetMapping("/logout/{userName}")
     public ResponseEntity<Object> logout(@PathVariable String userName) {
         boolean logout = appUserService.logout(userName);
