@@ -107,8 +107,6 @@ public class AppUserController {
         if (Boolean.FALSE.equals(checkAddNewAppUser)) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đăng ký thất bại, vui lòng chờ trong giây lất");
         }
-        Long appUserId = appUserService.findAppUserIdByUserName(appUser.getUserName());
-//        appUserService.createNewAppUser(appUser,appUserId)
         return ResponseEntity.ok("Đăng ký thành công, vui lòng bấm nút đăng nhập");
     }
 

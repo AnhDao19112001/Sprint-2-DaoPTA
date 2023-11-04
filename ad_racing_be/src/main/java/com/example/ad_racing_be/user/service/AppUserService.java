@@ -48,9 +48,9 @@ public class AppUserService implements IAppUserService {
     @Override
     public Boolean createNewAppUser(AppUser appUser, String role) {
         Integer amountAppUserCreated = appUserRepository.createNewAppUser(appUser);
-        Long roleId = appUserRepository.findAppRoleIdByName(role);
-        AppUser currentAppUser = appUserRepository.findAppUserByName(appUser.getUserName());
-        appUserRepository.insertRoleForCustomer(roleId, currentAppUser.getId());
+//        Long roleId = appUserRepository.findAppRoleIdByName(role);
+//        AppUser currentAppUser = appUserRepository.findAppUserByName(appUser.getUserName());
+//        appUserRepository.insertRoleForCustomer(roleId, currentAppUser.getId());
         return amountAppUserCreated > 0;
     }
 
