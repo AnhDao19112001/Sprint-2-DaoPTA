@@ -8,8 +8,8 @@ import Register from "./component/Register";
 
 function App() {
   return (
-    // <Login />
-      <Register />
+    <Login />
+    //   <Register />
     //   <DetailProduct/>
     //   <Header />
     //   <Footer/>

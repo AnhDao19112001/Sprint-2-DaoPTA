@@ -73,7 +73,6 @@ public class AppUserController {
         return ResponseEntity
                 .ok()
                 .body(new JwtResponse(jwtToken));
-
     }
 
     @PostMapping("/register-by-customer")
