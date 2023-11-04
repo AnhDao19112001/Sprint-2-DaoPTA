@@ -1,7 +1,4 @@
 package com.example.ad_racing_be.user.model;
-
-import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.*;
 import java.util.Set;
 

@@ -1,5 +1,6 @@
 package com.example.ad_racing_be.user.controller;
 
+import com.example.ad_racing_be.user.common.ValidateAppUser;
 import com.example.ad_racing_be.user.config.JwtTokenUtil;
 import com.example.ad_racing_be.user.dto.AppUserDto;
 import com.example.ad_racing_be.user.model.AppUser;
@@ -75,70 +76,41 @@ public class AppUserController {
 
     }
 
-//     */
-//    @PostMapping("/register-by-customer")
-//    public ResponseEntity<Object> registerByCustomer(@Valid @RequestBody AppUserDto appUserDto,
-//                                                BindingResult bindingResult) {
-//        new AppUserDto().validate(appUserDto, bindingResult);
-//        ValidateAppUser.checkValidateConfirmAppUserPassword(appUserDto.getConfirmPassword(), bindingResult);
-//        Map<String, String> errorsMap = new HashMap<>();
-//        if (!ValidateAppUser.checkVerificationPassword(appUserDto.getPassword(), appUserDto.getConfirmPassword())) {
-//            bindingResult.rejectValue("confirmPassword","","Mật khẩu không khớp");
-//        }
-//        if (bindingResult.hasErrors()) {
-//            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-//                errorsMap.put(fieldError.getField(), fieldError.getDefaultMessage());
-//            }
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_ACCEPTABLE)
-//                    .body(errorsMap);
-//        }
-//        boolean existsByUsername = appUserService.existsByUsername(appUserDto.getUserName());
-//        if (existsByUsername) {
-//            return ResponseEntity
-//                    .status(HttpStatus.CONFLICT)
-//                    .body("Tài khoản này đã tồn tại");
-//        }
-//
-//        AppUser appUser = new AppUser();
-//        BeanUtils.copyProperties(appUserDto, appUser);
-//        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-//        Boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser,"ROLE_CUSTOMER");
-//        if (Boolean.FALSE.equals(checkAddNewAppUser)) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đăng ký thất bại, vui lòng chờ trong giây lất");
-//        }
-//        Long appUserId = appUserService.findAppUserIdByUserName(appUser.getUserName());
-//        customerService.saveCustomerForAppUser(appUserId);
-//        return ResponseEntity.ok("Đăng ký thành công, vui lòng bấm nút đăng nhập");
-//    }
-//
+    @PostMapping("/register-by-customer")
+    public ResponseEntity<Object> registerByCustomer(@Valid @RequestBody AppUserDto appUserDto,
+                                                BindingResult bindingResult) {
+        new AppUserDto().validate(appUserDto, bindingResult);
+        ValidateAppUser.checkValidateConfirmAppUserPassword(appUserDto.getConfirmPassword(), bindingResult);
+        Map<String, String> errorsMap = new HashMap<>();
+        if (!ValidateAppUser.checkVerificationPassword(appUserDto.getPass(), appUserDto.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword","","Mật khẩu không khớp");
+        }
+        if (bindingResult.hasErrors()) {
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+                errorsMap.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return ResponseEntity
+                    .status(HttpStatus.NOT_ACCEPTABLE)
+                    .body(errorsMap);
+        }
+        boolean existsByUsername = appUserService.existsByUsername(appUserDto.getUserName());
+        if (existsByUsername) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("Tài khoản này đã tồn tại");
+        }
 
-//    @PostMapping("/register-by-manager")
-//    public ResponseEntity<Object> registerByManager(@RequestParam String userName) {
-//
-//        String errMsg = ValidateAppUser.checkValidateOnlyAppUserName(userName);
-//        if (!errMsg.equals("")) {
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_ACCEPTABLE)
-//                    .body(errMsg);
-//        }
-//        boolean userNameExisted = appUserService.existsByUsername(userName);
-//        if (userNameExisted) {
-//            return ResponseEntity
-//                    .status(HttpStatus.CONFLICT)
-//                    .body("Tài khoản này đã tồn tại");
-//        }
-//        AppUser appUser = new AppUser();
-//        appUser.setUserName(userName);
-//        appUser.setPassword(passwordEncoder.encode("123"));
-//        boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser,"ROLE_EMPLOYEE");
-//        if (!checkAddNewAppUser) {
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("Đăng ký thất bại, vui lòng chờ trong giây lát");
-//        }
-//        return ResponseEntity.ok("Đăng ký thành công");
-//    }
+        AppUser appUser = new AppUser();
+        BeanUtils.copyProperties(appUserDto, appUser);
+        appUser.setPass(passwordEncoder.encode(appUser.getPass()));
+        Boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser,"ROLE_CUSTOMER");
+        if (Boolean.FALSE.equals(checkAddNewAppUser)) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đăng ký thất bại, vui lòng chờ trong giây lất");
+        }
+        Long appUserId = appUserService.findAppUserIdByUserName(appUser.getUserName());
+//        appUserService.createNewAppUser(appUser,appUserId)
+        return ResponseEntity.ok("Đăng ký thành công, vui lòng bấm nút đăng nhập");
+    }
 
     @GetMapping("/logout/{userName}")
     public ResponseEntity<Object> logout(@PathVariable String userName) {

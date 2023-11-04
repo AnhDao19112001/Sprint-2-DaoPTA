@@ -1,5 +1,6 @@
 package com.example.ad_racing_be.user.dto;
 
+import com.example.ad_racing_be.user.common.ValidateAppUser;
 import com.example.ad_racing_be.user.model.UserRole;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -141,6 +142,8 @@ public class AppUserDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        AppUserDto appUserDto = (AppUserDto) target;
+        ValidateAppUser.checkValidateAppUserName(appUserDto.getUserName(),errors);
+        ValidateAppUser.checkValidateAppUserPassword(appUserDto.getPass(),errors);
     }
 }

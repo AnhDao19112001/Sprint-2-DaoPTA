@@ -82,6 +82,6 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = " call addRoleForAppUser(:appRoleId,:appUserId) ",nativeQuery = true)
+    @Query(value = "SELECT * FROM app_user",nativeQuery = true)
     void insertRoleForCustomer(Long roleId, Long id);
 }
