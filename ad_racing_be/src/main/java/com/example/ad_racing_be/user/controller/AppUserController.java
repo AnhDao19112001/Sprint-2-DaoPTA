@@ -41,7 +41,7 @@ public class AppUserController {
 
     @PostMapping("/login-by-username")
     public ResponseEntity<Object> loginByAccount(@Valid @RequestBody AppUserDto appUserDto,
-                                            BindingResult bindingResult) {
+                                                 BindingResult bindingResult) {
 
         new AppUserDto().validate(appUserDto, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -77,12 +77,12 @@ public class AppUserController {
 
     @PostMapping("/register-by-customer")
     public ResponseEntity<Object> registerByCustomer(@Valid @RequestBody AppUserDto appUserDto,
-                                                BindingResult bindingResult) {
+                                                     BindingResult bindingResult) {
         new AppUserDto().validate(appUserDto, bindingResult);
         ValidateAppUser.checkValidateConfirmAppUserPassword(appUserDto.getConfirmPassword(), bindingResult);
         Map<String, String> errorsMap = new HashMap<>();
         if (!ValidateAppUser.checkVerificationPassword(appUserDto.getPass(), appUserDto.getConfirmPassword())) {
-            bindingResult.rejectValue("confirmPassword","","Mật khẩu không khớp");
+            bindingResult.rejectValue("confirmPassword", "", "Mật khẩu không khớp");
         }
         if (bindingResult.hasErrors()) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -102,7 +102,7 @@ public class AppUserController {
         AppUser appUser = new AppUser();
         BeanUtils.copyProperties(appUserDto, appUser);
         appUser.setPass(passwordEncoder.encode(appUser.getPass()));
-        Boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser,"ROLE_CUSTOMER");
+        Boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser, "ROLE_CUSTOMER");
         if (Boolean.FALSE.equals(checkAddNewAppUser)) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đăng ký thất bại, vui lòng chờ trong giây lất");
         }
@@ -118,14 +118,5 @@ public class AppUserController {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Đăng xuất thất bại, vui lòng chờ trong giây lát");
-    }
-
-    @GetMapping("/get-id-app-user/{userName}")
-    public ResponseEntity<Object> getIdByAppUserName(@PathVariable String userName){
-        Long id = appUserService.findAppUserIdByUserName(userName);
-        if(id == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không có dữ liệu");
-        }
-        return ResponseEntity.ok().body(id);
     }
 }

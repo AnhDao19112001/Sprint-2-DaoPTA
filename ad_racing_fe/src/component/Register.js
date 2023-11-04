@@ -1,84 +1,165 @@
-function Register() {
-    return(
-        <>
-            <section className="vh-100 gradient-custom">
-                <div className="container py-5 h-100">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            <div
-                                className="card bg-dark text-white"
-                                style={{borderRadius: "1rem"}}
-                            >
-                                <div className="card-body p-5 text-center">
-                                    <div className="mb-md-5 mt-md-4 pb-5">
-                                        <h2 className="fw-bold mb-2 text-uppercase">Đăng ký</h2>
-                                        <p className="text-white-50 mb-5">
-                                            Vui lòng nhập tên và mật khẩu!
-                                        </p>
-                                        <div className="form-outline form-white mb-4">
-                                            <input
-                                                type="email"
-                                                id="typeEmailX"
-                                                className="form-control form-control-lg"
-                                            />
-                                            <label className="form-label" htmlFor="typeEmailX">
-                                                Tên đăng nhập
-                                            </label>
-                                        </div>
-                                        <div className="form-outline form-white mb-4">
-                                            <input
-                                                type="password"
-                                                id="typePasswordX"
-                                                className="form-control form-control-lg"
-                                            />
-                                            <label className="form-label" htmlFor="typePasswordX">
-                                                Mật khẩu
-                                            </label>
-                                        </div>
-                                        <div className="form-outline form-white mb-4">
-                                            <input
-                                                type="password"
-                                                id="typePasswordX"
-                                                className="form-control form-control-lg"
-                                            />
-                                            <label className="form-label" htmlFor="typePasswordX">
-                                                Nhập lại mật khẩu
-                                            </label>
-                                        </div>
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as userService from "../service/user/UserService";
+import Swal from "sweetalert2";
+import {Link, useNavigate} from "react-router-dom";
+import * as Yup from 'yup';
 
-                                        <button
-                                            className="btn btn-outline-light btn-lg px-5"
-                                            type="submit"
-                                        >
-                                            Đăng ký
-                                        </button>
-                                        <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                                            <a href="#" className="text-white">
-                                                <i className="fab fa-facebook-f fa-lg"/>
-                                            </a>
-                                            <a href="#" className="text-white">
-                                                <i className="fab fa-twitter fa-lg mx-4 px-2"/>
-                                            </a>
-                                            <a href="#" className="text-white">
-                                                <i className="fab fa-google fa-lg"/>
-                                            </a>
+function Register() {
+    const navigate = useNavigate();
+    const registerAppUser = async (appUser, setError) => {
+        const cloneAppUser = {
+            ...appUser,
+        }
+        try {
+            const result = await userService.registerUser(cloneAppUser);
+            Swal.fire({
+                icon: "success",
+                title: "Quay về trang đăng nhập",
+            })
+            navigate("/login");
+        } catch (err) {
+            if (err.response.status === 406) {
+                setError(err.response.data);
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: err.response.data,
+                })
+            }
+        }
+    }
+
+    const checkConfirmPassword = (confirmPassword) => {
+        let password = document.getElementById("pass").value;
+        return password === confirmPassword;
+    }
+
+        const validateRegister = {
+        userName: Yup.string()
+            .required("Không để trống tên tài khoảng!")
+            .test('check-userName', 'Không để trống tên tài khoảng!', (value) => value.trim().length !== 0)
+            .min(3, "Tên đăng nhập phải lơớn hơn hoặc bằng 3 ký tự!")
+            .max(50, "Tên đăng nhập phải ít hơn hoặc bằng 50 ký tự!"),
+        pass: Yup.string()
+            .required("Không được để trống mật khẩu!")
+            .test('check-userName', "Không để trống mật khẩu!", (value) => value.trim().length !== 0)
+            .min(3, "Mật khẩu ít nhất 3 ký tự!")
+            .max(50, "Mật khẩu phải ít hơn hoặc bằng 50 ký tự!"),
+            confirmPassword: Yup.string()
+            .required("Không được để trống mật khẩu!")
+            .test('check-userName', "Không để trống mật khẩu", (value) => value.trim().length !== 0)
+            .min(3, "Mật khẩu ít nhất 3 ký tự!")
+            .max(50, "Mật khẩu ít hơn hoặc bằng 50 ký tự!")
+            // .test('check-confirm-password', "Mật khẩu không trùng khớp", (value) => checkConfirmPassword(value))
+    }
+
+    return (
+        <>
+            <Formik initialValues={{
+                userName: "",
+                pass: "",
+                confirmPassword: "",
+            }}
+                    validationSchema={Yup.object(validateRegister)}
+
+                    onSubmit={(values, {setSubmitting, setErrors}) => {
+                        setSubmitting(false);
+                        registerAppUser(values, setErrors)
+                    }}>
+                <Form>
+                    <section className="vh-100 gradient-custom">
+                        <div className="container py-5 h-100">
+                            <div className="row d-flex justify-content-center align-items-center h-100">
+                                <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                                    <div
+                                        className="card bg-dark text-white"
+                                        style={{borderRadius: "1rem"}}
+                                    >
+                                        <div className="card-body p-5 text-center">
+                                            <div className="mb-md-5 mt-md-4 pb-5">
+                                                <h2 className="fw-bold mb-2 text-uppercase">Đăng ký</h2>
+                                                <p className="text-white-50 mb-5">
+                                                    Vui lòng nhập tên và mật khẩu!
+                                                </p>
+                                                <div className="form-outline form-white mb-4">
+                                                    <Field
+                                                        type="text"
+                                                        id="userName"
+                                                        name="userName"
+                                                        className="form-control form-control-lg"
+                                                    />
+                                                    <div style={{height: 15}}>
+                                                        <ErrorMessage name="userName" component="span" className="text-danger" />
+                                                    </div>
+                                                    <label className="form-label" htmlFor="userName">
+                                                        Tên đăng nhập <span className="text-danger">*</span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-outline form-white mb-4">
+                                                    <Field
+                                                        type="password"
+                                                        id="typePasswordX"
+                                                        name="pass"
+                                                        className="form-control form-control-lg"
+                                                    />
+                                                    <div style={{height: 15}}>
+                                                        <ErrorMessage name="pass" component={"small"} className="text-danger" />
+                                                    </div>
+                                                    <label className="form-label" htmlFor="typePasswordX">
+                                                        Mật khẩu <span className="text-danger">*</span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-outline form-white mb-4">
+                                                    <Field
+                                                        name="confirmPassword"
+                                                        type="password"
+                                                        id="typePasswordX"
+                                                        className="form-control form-control-lg"
+                                                    />
+                                                    <div style={{height: 15}}>
+                                                        <ErrorMessage name="confirmPassword" component="small" className="text-danger" />
+                                                    </div>
+                                                    <label className="form-label" htmlFor="typePasswordX">
+                                                        Nhập lại mật khẩu <span className="text-danger">*</span>
+                                                    </label>
+                                                </div>
+
+                                                <button
+                                                    className="btn btn-outline-light btn-lg px-5"
+                                                    type="submit"
+                                                >
+                                                    Đăng ký
+                                                </button>
+                                                <div className="d-flex justify-content-center text-center mt-4 pt-1">
+                                                    <a href="#" className="text-white">
+                                                        <i className="fab fa-facebook-f fa-lg"/>
+                                                    </a>
+                                                    <a href="#" className="text-white">
+                                                        <i className="fab fa-twitter fa-lg mx-4 px-2"/>
+                                                    </a>
+                                                    <a href="#" className="text-white">
+                                                        <i className="fab fa-google fa-lg"/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p className="mb-0">
+                                                    Bạn đã có tài khoảng?{" "}
+                                                    <Link to={'/login'} className="text-white-50 fw-bold">
+                                                        Đăng nhập
+                                                    </Link>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <p className="mb-0">
-                                            Bạn đã có tài khoảng?{" "}
-                                            <a href="#" className="text-white-50 fw-bold">
-                                                Đăng nhập
-                                            </a>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+                </Form>
+            </Formik>
         </>
     )
 }
+
 export default Register;

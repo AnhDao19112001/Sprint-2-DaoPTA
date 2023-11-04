@@ -240,7 +240,7 @@ function Cart() {
                     </div>
                 </div>
             </section>
-            <Footer/>
+            {/*<Footer/>*/}
         </>
     )
 }

@@ -11,7 +11,7 @@ public class ValidateAppUser {
     private static final String CHAR_LENGTH_LESS_THREE = "Số lượng ký tự phải lớn hơn hoặc bằng 3";
     private static final String CHAR_LENGTH_GREATER_FIFTY = "Số lượng ký tự bé hơn hoặc bằng 50";
     private static final String USER_NAME = "userName";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "pass";
     private static final String CONFIRM_PASSWORD = "confirmPassword";
 
     public static void checkValidateAppUserName(String name, Errors errors) {
@@ -24,12 +24,12 @@ public class ValidateAppUser {
         }
     }
 
-    public static void checkValidateAppUserPassword(String password, Errors errors) {
-        if (password == null || password.trim().length() == 0) {
+    public static void checkValidateAppUserPassword(String pass, Errors errors) {
+        if (pass == null || pass.trim().length() == 0) {
             errors.rejectValue(PASSWORD, "", NAME_NOT_EMPTY);
-        } else if (password.length() > 50) {
+        } else if (pass.length() > 50) {
             errors.rejectValue(PASSWORD, "", CHAR_LENGTH_GREATER_FIFTY);
-        } else if (password.length() < 3) {
+        } else if (pass.length() < 3) {
             errors.rejectValue(PASSWORD, "", CHAR_LENGTH_LESS_THREE);
         }
     }
@@ -44,8 +44,8 @@ public class ValidateAppUser {
         }
     }
 
-    public static boolean checkVerificationPassword(String password, String confirmPassword) {
-        return password.equals(confirmPassword);
+    public static boolean checkVerificationPassword(String pass, String confirmPassword) {
+        return pass.equals(confirmPassword);
     }
 
     public static String checkValidateOnlyAppUserName(String name) {
