@@ -237,7 +237,7 @@ function DetailProduct() {
                     </div>
                 </div>
             </div>
-            {/*<Footer/>*/}
+            <Footer/>
         </>
     )
 }

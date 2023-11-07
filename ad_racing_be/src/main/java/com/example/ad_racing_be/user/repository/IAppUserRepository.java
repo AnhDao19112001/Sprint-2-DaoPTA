@@ -74,9 +74,11 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
      * author: DaoPTA
      * workday: 02/11/2023
      * method: findAppRoleIdByName
-     * @param nameRole nameRole
      * @return Long
      */
-    @Query(value =  " select r.id from app_role r where r.name_role = :nameRole " ,nativeQuery = true)
-    Long findAppRoleIdByName(@Param("nameRole")String nameRole);
+    @Modifying
+    @Transactional
+    @Query(value =  " CALL insert_acc ( :pass, :userName, :roleId)" ,nativeQuery = true)
+    void findAppRoleIdByName(@Param("pass") String pass, @Param("userName") String userName,
+                             @Param("roleId") Long roleId);
 }

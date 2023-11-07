@@ -102,10 +102,8 @@ public class AppUserController {
         AppUser appUser = new AppUser();
         BeanUtils.copyProperties(appUserDto, appUser);
         appUser.setPass(passwordEncoder.encode(appUser.getPass()));
-        Boolean checkAddNewAppUser = appUserService.createNewAppUser(appUser, "ROLE_CUSTOMER");
-        if (Boolean.FALSE.equals(checkAddNewAppUser)) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đăng ký thất bại, vui lòng chờ trong giây lất");
-        }
+         appUserService.createNewAppUser(appUser, "ROLE_CUSTOMER");
+
         return ResponseEntity.ok("Đăng ký thành công, vui lòng bấm nút đăng nhập");
     }
 

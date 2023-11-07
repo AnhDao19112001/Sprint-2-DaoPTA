@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as userService from "../../service/user/UserService"
 import Swal from "sweetalert2";
 import {BiCog, BiLogOutCircle, BiUserCircle} from "react-icons/bi";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Header() {
     const [keyWord, setKeyWord] = useState("");
     const [userId, setUserId] = useState("");
     const [types, setTypes] = useState([]);
-    
+
     const roleAdmin = userService.checkRollAppUser("ROLE_ADMIN");
     const roleCustomer = userService.checkRollAppUser("ROLE_CUSTOMER");
 
@@ -52,11 +53,8 @@ function Header() {
 
     return (
         <>
-            {/* Navbar */}
             <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-                {/* Container wrapper */}
                 <div className="container-fluid">
-                    {/* Toggle button */}
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -68,9 +66,7 @@ function Header() {
                     >
                         <i className="fas fa-bars"/>
                     </button>
-                    {/* Collapsible wrapper */}
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {/* Navbar brand */}
                         <a className="navbar-brand mt-2 mt-lg-0" href="src/component#">
                             <img
                                 src="AD_RACING_logo.png"
@@ -80,7 +76,6 @@ function Header() {
                                 loading="lazy"
                             />
                         </a>
-                        {/* Left links */}
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <a className="nav-link" href="src/component#">
@@ -99,55 +94,37 @@ function Header() {
                             </li>
                         </ul>
                     </div>
-                    <a className="text-reset me-3" href="src/component#">
-                        <i className="fas fa-shopping-cart"/>
-
-                        {!userName ? (
-                            <Link to="/login">
-                                <span className="user-info">Đăng nhập</span>
-                            </Link>
-                        ) : (
-                            <span className="user-info" style={{overflow: "hidden"}}>
+                    <i className="fas fa-shopping-cart"/>
+                    <img src="https://kawasakivietnam.vn/data/product/800/kawasaki-ninja-400-2021-1612063576.jpg"
+                         style={{width:50, height: 50}}
+                         alt=""/>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            {!userName ? (
+                                <Link to="/login">
+                                    <span className="user-info" style={{color: "black"}}>Đăng nhập</span>
+                                </Link>
+                            ) : (
+                                <span className="user-info" style={{overflow: "hidden"}}>
                                 {userName.sub}
                             </span>
-                        )}
-                        <div className="user-dropdown-list">
+                            )}
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
                             {JwtToken ? (
                                 <>
-                                    <Link
-                                        className=" user-dropdown-item d-flex align-items-center hidden-arrow"
-                                        to={`/user-info/${userId}`}
-                                        id="navbarDropdownMenuAvatar"
-                                        role="button"
-                                        data-mdb-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <BiUserCircle className="me-3 ms-0" size={25}/>
-                                        <div className="dropdown-text">Thông tin</div>
-                                    </Link>
+                                    <Dropdown.Item as={Link} to={`/user-info/${userId}`}>Thông tin</Dropdown.Item>
                                     {(roleAdmin || roleCustomer) && (
-                                        <Link
-                                            to={"/dashboard/retail"}
-                                            className="user-dropdown-item"
-                                        >
-                                            <BiCog className="me-3 ms-0" size={25}/>
-                                            <div className="dropdown-text">Chức năng</div>
-                                        </Link>
+                                        <Dropdown.Item as={Link} to={"/dashboard/retail"}>Chức năng</Dropdown.Item>
                                     )}
-                                    <Link className="user-dropdown-item">
-                                        <BiLogOutCircle className="me-3 ms-0" size={25}/>
-                                        <div
-                                            className="dropdown-text"
-                                            onClick={() => {
-                                                handleLogout();
-                                            }}
-                                        >
-                                            Đăng xuất
-                                        </div>
-                                    </Link>
+                                    <Dropdown.Item onClick={() => {
+                                        handleLogout();
+                                    }}>Đăng xuất</Dropdown.Item>
                                 </>
                             ) : null}
-                        </div>
-                    </a>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </div>
             </nav>
         </>
