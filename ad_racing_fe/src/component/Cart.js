@@ -1,6 +1,6 @@
-import "./Cart.css"
-import Header from "./Header";
-import Footer from "./Footer";
+import "../css/Cart.css"
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 function Cart() {
     return(
         <>

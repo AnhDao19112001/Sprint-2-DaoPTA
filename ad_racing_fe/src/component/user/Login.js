@@ -1,7 +1,7 @@
-import "./LoginCSS.css"
+import "../../css/LoginCSS.css"
 import "bootstrap/dist/css/bootstrap.css"
 import {useState} from "react";
-import * as userService from "../service/user/UserService"
+import * as userService from "../../service/user/UserService"
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import Swal from "sweetalert2"
@@ -84,7 +84,7 @@ function Login() {
                                                     </label>
                                                 </div>
                                                 <p className="small mb-5 pb-lg-2">
-                                                    <a className="text-white-50" href="#!">
+                                                    <a className="text-white-50" href="src/component#!">
                                                         Bạn quên mật khẩu?
                                                     </a>
                                                 </p>
@@ -95,13 +95,13 @@ function Login() {
                                                     Đăng nhập
                                                 </button>
                                                 <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-facebook-f fa-lg"/>
                                                     </a>
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-twitter fa-lg mx-4 px-2"/>
                                                     </a>
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-google fa-lg"/>
                                                     </a>
                                                 </div>

@@ -1,5 +1,5 @@
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import * as userService from "../service/user/UserService";
+import * as userService from "../../service/user/UserService";
 import Swal from "sweetalert2";
 import {Link, useNavigate} from "react-router-dom";
 import * as Yup from 'yup';
@@ -29,12 +29,7 @@ function Register() {
         }
     }
 
-    const checkConfirmPassword = (confirmPassword) => {
-        let password = document.getElementById("pass").value;
-        return password === confirmPassword;
-    }
-
-        const validateRegister = {
+    const validateRegister = {
         userName: Yup.string()
             .required("Không để trống tên tài khoảng!")
             .test('check-userName', 'Không để trống tên tài khoảng!', (value) => value.trim().length !== 0)
@@ -45,12 +40,12 @@ function Register() {
             .test('check-userName', "Không để trống mật khẩu!", (value) => value.trim().length !== 0)
             .min(3, "Mật khẩu ít nhất 3 ký tự!")
             .max(50, "Mật khẩu phải ít hơn hoặc bằng 50 ký tự!"),
-            confirmPassword: Yup.string()
+        confirmPassword: Yup.string()
             .required("Không được để trống mật khẩu!")
             .test('check-userName', "Không để trống mật khẩu", (value) => value.trim().length !== 0)
             .min(3, "Mật khẩu ít nhất 3 ký tự!")
             .max(50, "Mật khẩu ít hơn hoặc bằng 50 ký tự!")
-            // .test('check-confirm-password', "Mật khẩu không trùng khớp", (value) => checkConfirmPassword(value))
+            .oneOf([Yup.ref('pass'), null], "Mật khẩu không trùng khớp!")
     }
 
     return (
@@ -89,7 +84,8 @@ function Register() {
                                                         className="form-control form-control-lg"
                                                     />
                                                     <div style={{height: 15}}>
-                                                        <ErrorMessage name="userName" component="span" className="text-danger" />
+                                                        <ErrorMessage name="userName" component="span"
+                                                                      className="text-danger"/>
                                                     </div>
                                                     <label className="form-label" htmlFor="userName">
                                                         Tên đăng nhập <span className="text-danger">*</span>
@@ -103,7 +99,8 @@ function Register() {
                                                         className="form-control form-control-lg"
                                                     />
                                                     <div style={{height: 15}}>
-                                                        <ErrorMessage name="pass" component={"small"} className="text-danger" />
+                                                        <ErrorMessage name="pass" component={"small"}
+                                                                      className="text-danger"/>
                                                     </div>
                                                     <label className="form-label" htmlFor="typePasswordX">
                                                         Mật khẩu <span className="text-danger">*</span>
@@ -117,7 +114,8 @@ function Register() {
                                                         className="form-control form-control-lg"
                                                     />
                                                     <div style={{height: 15}}>
-                                                        <ErrorMessage name="confirmPassword" component="small" className="text-danger" />
+                                                        <ErrorMessage name="confirmPassword" component="small"
+                                                                      className="text-danger"/>
                                                     </div>
                                                     <label className="form-label" htmlFor="typePasswordX">
                                                         Nhập lại mật khẩu <span className="text-danger">*</span>
@@ -131,13 +129,13 @@ function Register() {
                                                     Đăng ký
                                                 </button>
                                                 <div className="d-flex justify-content-center text-center mt-4 pt-1">
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-facebook-f fa-lg"/>
                                                     </a>
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-twitter fa-lg mx-4 px-2"/>
                                                     </a>
-                                                    <a href="#" className="text-white">
+                                                    <a href="src/component#" className="text-white">
                                                         <i className="fab fa-google fa-lg"/>
                                                     </a>
                                                 </div>

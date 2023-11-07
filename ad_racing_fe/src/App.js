@@ -1,11 +1,9 @@
 import './App.css';
-import Login from "./component/Login";
+import Login from "./component/user/Login";
 import Cart from "./component/Cart";
-import DetailProduct from "./component/DetailProduct";
-import Header from "./component/Header";
-import Footer from "./component/Footer";
-import Register from "./component/Register";
+import Register from "./component/user/Register";
 import {Route, Routes} from "react-router-dom";
+import DetailProduct from "./component/DetailProduct";
 
 function App() {
   return (
@@ -13,13 +11,8 @@ function App() {
         <Route path={`/login`} element={<Login />} />
         <Route path={`/register`} element={<Register />} />
         <Route path={`/cart`} element={<Cart />} />
+        <Route path={`/detail`} element={<DetailProduct />} />
       </Routes>
-
-    //   <Register />
-    //   <DetailProduct/>
-    //   <Header />
-    //   <Footer/>
-    //   <Cart />
   );
 }
 

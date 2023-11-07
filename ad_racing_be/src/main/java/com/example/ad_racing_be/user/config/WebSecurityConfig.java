@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/home/**",
                         "/api/home/search/**",
                         "/api/user/get-id-app-user/{userName}",
-                        "/api/user/register-by-customer"
+                        "/api/user/register-by-customer",
+                        "/api/user/id-user/{userName}"
                 ).permitAll()
                 .antMatchers(
 

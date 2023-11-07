@@ -79,9 +79,4 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
      */
     @Query(value =  " select r.id from app_role r where r.name_role = :nameRole " ,nativeQuery = true)
     Long findAppRoleIdByName(@Param("nameRole")String nameRole);
-
-    @Modifying
-    @Transactional
-    @Query(value = "SELECT * FROM app_user",nativeQuery = true)
-    void insertRoleForCustomer(Long roleId, Long id);
 }

@@ -1,6 +1,6 @@
-import "./DetailProduct.css"
-import Header from "./Header";
-import Footer from "./Footer";
+import "../css/DetailProduct.css"
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 function DetailProduct() {
     return (
         <>
