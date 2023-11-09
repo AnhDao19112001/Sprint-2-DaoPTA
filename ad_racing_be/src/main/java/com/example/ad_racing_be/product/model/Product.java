@@ -12,7 +12,7 @@ public class Product {
     private Long idProduct;
     private String nameProduct;
     private String codeProduct;
-    private Integer price;
+    private Float price;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
     private Boolean flagDeleted;
@@ -27,7 +27,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long idProduct, String nameProduct, String codeProduct, Integer price, String description, Boolean flagDeleted, List<Image> images, TypeProduct typeProduct) {
+    public Product(Long idProduct, String nameProduct, String codeProduct, Float price, String description, Boolean flagDeleted, List<Image> images, TypeProduct typeProduct) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.codeProduct = codeProduct;
@@ -62,11 +62,11 @@ public class Product {
         this.codeProduct = codeProduct;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

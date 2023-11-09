@@ -7,7 +7,7 @@ public class ProductDro implements Validator {
     private Long idProduct;
     private String nameProduct;
     private String codeProduct;
-    private Integer price;
+    private Float price;
     private String description;
     private Boolean flagDeleted;
     private ImageDto imageDto;
@@ -17,7 +17,7 @@ public class ProductDro implements Validator {
     public ProductDro() {
     }
 
-    public ProductDro(Long idProduct, String nameProduct, String codeProduct, Integer price, String description, Boolean flagDeleted, ImageDto imageDto, TypeProductDto typeProductDto) {
+    public ProductDro(Long idProduct, String nameProduct, String codeProduct, Float price, String description, Boolean flagDeleted, ImageDto imageDto, TypeProductDto typeProductDto) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.codeProduct = codeProduct;
@@ -28,7 +28,7 @@ public class ProductDro implements Validator {
         this.typeProductDto = typeProductDto;
     }
 
-    public ProductDro(Long idProduct, String nameProduct, String codeProduct, Integer price, String description, Boolean flagDeleted, ImageDto imageDto, TypeProductDto typeProductDto, List<String> imageDtoList) {
+    public ProductDro(Long idProduct, String nameProduct, String codeProduct, Float price, String description, Boolean flagDeleted, ImageDto imageDto, TypeProductDto typeProductDto, List<String> imageDtoList) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.codeProduct = codeProduct;
@@ -72,11 +72,11 @@ public class ProductDro implements Validator {
         this.codeProduct = codeProduct;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
