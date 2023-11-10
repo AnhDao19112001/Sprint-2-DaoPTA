@@ -22,4 +22,9 @@ public class HomeService implements IHomeService{
     public Page<ProductForHomePageDto> getListMedicineWithPagination(String nameProduct, String nameType, Pageable pageable) {
         return homeRepository.getListMedicineWithPagination(nameProduct, nameType, pageable);
     }
+
+    @Override
+    public List<ProductForHomePageDto> findFavoriteProductForHomepage() {
+        return homeRepository.findFavoriteProductForHomepage();
+    }
 }

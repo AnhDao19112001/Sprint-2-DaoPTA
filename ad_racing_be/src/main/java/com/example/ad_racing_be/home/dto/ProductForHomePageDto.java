@@ -6,4 +6,5 @@ public interface ProductForHomePageDto {
     Float getPrice();
     String getImageProduct();
     String getNameType();
+    Integer getProductSaleQuantity();
 }

@@ -44,4 +44,13 @@ public class HomePageController {
         }
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
+
+    @GetMapping("/favorite")
+    public ResponseEntity<List<ProductForHomePageDto>> findFavoriteProductForHomepage(){
+        List<ProductForHomePageDto> product = homeService.findFavoriteProductForHomepage();
+        if (product.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(product,HttpStatus.OK);
+    }
 }
