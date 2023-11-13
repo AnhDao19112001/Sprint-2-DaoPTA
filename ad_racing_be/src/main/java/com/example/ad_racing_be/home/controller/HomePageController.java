@@ -19,7 +19,7 @@ import java.util.List;
 public class HomePageController {
     @Autowired
     private IHomeService homeService;
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<ProductForHomePageDto>> findProductHomePage(@RequestParam(defaultValue = "",required = false) String nameProduct,
                                                                            @RequestParam(defaultValue = "",required = false) String nameType){
     List<ProductForHomePageDto> pageDtoList = homeService.findProductForHomePage(nameProduct, nameType);

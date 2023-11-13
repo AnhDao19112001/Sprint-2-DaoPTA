@@ -103,7 +103,7 @@ function Cart() {
                                                     <a href="#!" className="float-end text-black">
                                                         <i className="fas fa-times"/>
                                                     </a>
-                                                    <h5 className="text-primary">Mâm 3 đao + lốp Mecheling</h5>
+                                                    <h5 className="text-primary">Mâm 5 đao + lốp Mecheling</h5>
                                                     <h6 style={{color: "black"}}>Màu mâm: cam</h6>
                                                     <div className="d-flex align-items-center">
                                                         <p className="fw-bold mb-0 me-5 pe-3">3.700.000vnđ</p>

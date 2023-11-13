@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import {BiCog, BiLogOutCircle, BiUserCircle} from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function Header() {
+function Header({inputSearch, onInputChange}) {
     const navigate = useNavigate();
     const [JwtToken, setJwtToken] = useState(localStorage.getItem("JWT"));
     const [userName, setUserName] = useState("");
@@ -42,12 +42,12 @@ function Header() {
         localStorage.removeItem("JWT");
         setJwtToken(undefined);
         setUserName(undefined);
-        navigate("/cart");
+        navigate("/home");
         Swal.fire({
             title: "Đăng xuất thành công!",
             icon: "success",
         });
-        navigate("/cart");
+        navigate("/home");
         window.location.reload();
     }
 
@@ -78,18 +78,28 @@ function Header() {
                         </a>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
+                                <Link className="nav-link" to={"/home"}>
+                                    Trang chủ
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <a className="nav-link" href="src/component#">
-                                    Dashboard
+                                    Về chúng tôi
                                 </a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="src/component#">
-                                    Team
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="src/component#">
-                                    Projects
+                                    <div className={"type-info"}
+                                    style={{overflow: "hidden"}}>
+                                        Danh mục
+                                    </div>
+                                    <div className={"type-dropdown-list"}>
+                                        {
+                                            types?.map((type,index) => (
+                                                <Link key={index} to={``}/>
+                                            ))
+                                        }
+                                    </div>
                                 </a>
                             </li>
                         </ul>

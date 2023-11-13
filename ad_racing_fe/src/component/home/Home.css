@@ -3,7 +3,7 @@
 font-family: 'Poppins', sans-serif; */
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Arial", sans-serif;
   text-rendering: optimizeLegibility !important;
   background: #f3f3f5;
 }
@@ -1213,7 +1213,7 @@ p {
 }
 
 .product-container {
-  padding: 0 5vw;
+  padding: 5px 5vw 5px;
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
@@ -1232,7 +1232,7 @@ p {
 
 .product-image {
   position: relative;
-  width: 100%;
+  width: 243px;
   height: 250px;
   overflow: hidden;
   border-radius: 5px;
