@@ -7,7 +7,9 @@ import DetailProduct from "./component/DetailProduct";
 import Authentication from "./component/user/Authentication";
 import {EnumAppUserRole} from "./component/user/EnumAppUserRoles";
 import AuthorOfCustomer from "./component/user/AuthorOfCustomer";
-
+import Error from "./component/user/Error";
+import HomePage from "./component/home/HomePage";
+import "bootstrap/dist/css/bootstrap.css"
 function App() {
     return (
         <Routes>
@@ -15,6 +17,8 @@ function App() {
             <Route path={`/register`} element={<Register/>}/>
             <Route path={`/cart`} element={<Cart/>}/>
             <Route path={`/detail`} element={<DetailProduct/>}/>
+            <Route path={`/403`} element={<Error />}/>
+            <Route path={`/home`} element={<HomePage />}/>
 
             <Route element={
                 <Authentication
