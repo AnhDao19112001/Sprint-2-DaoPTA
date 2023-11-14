@@ -1,19 +1,19 @@
 import "bootstrap/dist/css/bootstrap.css"
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import * as userService from "../../service/user/UserService"
 import Swal from "sweetalert2";
-import {BiCog, BiLogOutCircle, BiUserCircle} from "react-icons/bi";
 import Dropdown from 'react-bootstrap/Dropdown';
-
-function Header({inputSearch, onInputChange}) {
+import {AiOutlineShoppingCart} from "react-icons/ai";
+import * as typeProduct from "../../service/type/TypeProduct";
+import {CiSearch} from "react-icons/ci";
+const Header = ({inputSearch, onInputChange}) => {
     const navigate = useNavigate();
     const [JwtToken, setJwtToken] = useState(localStorage.getItem("JWT"));
     const [userName, setUserName] = useState("");
-    const [keyWord, setKeyWord] = useState("");
+    const [nameProduct, setNameProduct] = useState("");
     const [userId, setUserId] = useState("");
-    const [types, setTypes] = useState([]);
+    const [nameType, setNameType] = useState([]);
 
     const roleAdmin = userService.checkRollAppUser("ROLE_ADMIN");
     const roleCustomer = userService.checkRollAppUser("ROLE_CUSTOMER");
@@ -29,6 +29,10 @@ function Header({inputSearch, onInputChange}) {
             setUserId(id.data);
         }
     }
+    const getTypeProduct = async () => {
+        const result = await typeProduct.getAllType();
+        setNameType(result);
+    }
 
     useEffect(() => {
         getUserName();
@@ -36,6 +40,7 @@ function Header({inputSearch, onInputChange}) {
 
     useEffect(() => {
         getAppUserId();
+        getTypeProduct();
     }, [])
 
     const handleLogout = () => {
@@ -50,6 +55,18 @@ function Header({inputSearch, onInputChange}) {
         navigate("/home");
         window.location.reload();
     }
+
+    const handleInputChange = (event) => {
+        setNameProduct(event.target.value);
+    }
+    const handleProduct = (nameProduct) => {
+        navigate(`/home/search/${nameProduct}`);
+    }
+    const handleSearch = (event) => {
+        event.preventDefault();
+        handleProduct(nameProduct);
+    }
+
 
     return (
         <>
@@ -95,8 +112,10 @@ function Header({inputSearch, onInputChange}) {
                                     </div>
                                     <div className={"type-dropdown-list"}>
                                         {
-                                            types?.map((type,index) => (
-                                                <Link key={index} to={``}/>
+                                            nameType?.map((type,index) => (
+                                                <Link key={index} to={`/home/list-product/${type.nameType}`} className="category-dropdown-item" >
+                                                    <div className="dropdown-text">{type.nameType}</div>
+                                                </Link>
                                             ))
                                         }
                                     </div>
@@ -104,10 +123,27 @@ function Header({inputSearch, onInputChange}) {
                             </li>
                         </ul>
                     </div>
-                    <i className="fas fa-shopping-cart"/>
-                    <img src="https://kawasakivietnam.vn/data/product/800/kawasaki-ninja-400-2021-1612063576.jpg"
-                         style={{width:50, height: 50}}
-                         alt=""/>
+                    <form className="header-search-form for-des" style={{paddingRight:"5px"}}>
+                        <input
+                            type="search"
+                            id="form-input-home"
+                            className="form-input m-0"
+                            placeholder="Tìm kiếm..."
+                            value={inputSearch}
+                            onChange={(event) => {
+                                handleInputChange(event);
+                                onInputChange(event);
+                            }}
+                        />
+                        <button type="submit" onClick={(e) => handleSearch(e)}>
+                            <CiSearch />
+                        </button>
+                    </form>
+                    <NavLink to={`/cart`} style={{position:"relative",marginRight:"2%",color:"black"}}>
+
+                        <AiOutlineShoppingCart size="2em"/><span style={{position: "absolute"}}>4</span>
+
+                        </NavLink>
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                             {!userName ? (

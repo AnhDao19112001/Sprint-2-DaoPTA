@@ -19,8 +19,8 @@ public class HomeService implements IHomeService{
     }
 
     @Override
-    public Page<ProductForHomePageDto> getListMedicineWithPagination(String nameProduct, String nameType, Pageable pageable) {
-        return homeRepository.getListMedicineWithPagination(nameProduct, nameType, pageable);
+    public Page<ProductForHomePageDto> getListProductWithPagination(String nameProduct, String nameType, Pageable pageable) {
+        return homeRepository.getListProductWithPagination(nameProduct, nameType, pageable);
     }
 
     @Override

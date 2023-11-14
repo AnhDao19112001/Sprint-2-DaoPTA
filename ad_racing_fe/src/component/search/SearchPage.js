@@ -1,88 +1,108 @@
-import {Link, useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import * as homeService from "../../service/home/HomeService"
-import Header from "./Header";
-import HavingNoResult from "../search/HavingNoResult";
+import React, {useEffect, useState} from "react";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+import {useParams, Link, useNavigate} from "react-router-dom";
+import * as homeService from "../../service/home/HomeService";
+import HavingNoResults from "./HavingNoResult";
+import {ToastContainer} from "react-toastify";
 import * as utils from "../../service/utils/Utils";
 
-const ProductWithKind = () => {
+export const SearchPage = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [productList, setProductList] = useState([]);
-    const [nameProduct, setNameProduct] = useState("");
-    const [nameType, setNameType] = useState(params.nameType);
+    const [nameProduct, setNameProduct] = useState(params.nameProduct);
+    const [nameType, setNameType] = useState("");
     const [sortBy, setSortBy] = useState("price");
     const [sort, setSort] = useState("asc");
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(8);
     const [totalElements, setTotalElements] = useState(0);
+    const [displayKeyword, setDisplayKeyword] = useState(params.nameProduct);
     const [isNoContent, setIsNoContent] = useState(false);
-    const [displayType, setDisplayType] = useState(params.nameType);
     const [appUserId, setAppUserId] = useState(null);
 
     useEffect(() => {
+        console.log(params.nameProduct);
         setCurrentPage(1);
-        getParams();
-    }, [params.nameType]);
-    useEffect(() => {
-        getListProduct();
-    }, [currentPage, sortBy, sort, nameType]);
+        getProductList();
+    }, [params.nameProduct]);
 
-    const getParams = () => {
-        setNameType(params.nameType);
-    };
-    // const addToCart = async (idProduct) => {
-    //     const isLoggedIn =
-    // }
-    const getListProduct = async () => {
+    useEffect(() => {
+        getProductList();
+    }, [currentPage, sortBy, sort]);
+
+    const getProductList = async () => {
         setIsNoContent(false);
-        const result = await homeService.searchProduct(
+        let trimKeyword = " ";
+        if (nameProduct !== undefined) {
+            trimKeyword = nameProduct.trim();
+        } else {
+            trimKeyword = "";
+        }
+        const response = await homeService.searchProduct(
             currentPage - 1,
             pageSize,
-            nameProduct,
+            trimKeyword,
             nameType,
             sort,
             sortBy
         );
-        if (result.status === 204) {
+        console.log(response);
+        if (response.status === 204) {
             setIsNoContent(true);
             setNameProduct("");
         } else {
-            setProductList(result.data.content);
-            setTotalElements(result.data.totalElement);
-            setDisplayType(nameType);
+            setProductList(response.data.content);
+            setTotalElements(response.data.totalElements);
+            setDisplayKeyword(nameProduct);
         }
     };
+
+
+    const handleInputChange = async (event) => {
+        event.preventDefault();
+        setNameProduct(event.target.value);
+    };
+
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-    const handleSortChange = (event) => {
-        setSort(event.target.value);
-    };
+
     const handleSortByChange = (event) => {
         setSortBy(event.target.value);
     };
+
+    const handleSortDirectionChange = (event) => {
+        setSort(event.target.value);
+    };
+
     const totalPages = Math.ceil(totalElements / pageSize);
+
     return (
         <>
-            <Header onInputChange={() => {
-            }}/>
+            <Header inputSearch={nameProduct} onInputChange={handleInputChange}/>
             <section
-                className="our-menu bg-light repeat-img pb-5" style={{padding: "7rem 0 0"}}>
-                {isNoContent ? (<HavingNoResult/>) : (
+                className="our-menu bg-light repeat-img pb-5"
+                style={{padding: "7rem 0 0"}}
+            >
+                {isNoContent ? (
+                    <HavingNoResults/>
+                ) : (
                     <>
                         <div className="container min-vh-100">
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="sec-title text-center mt-4">
-                                        <p className="sec-sub-title">Danh mục {nameType}</p>
+                                        <p className="sec-sub-title">Kết quả tìm kiếm</p>
                                     </div>
                                     <div className="border border-warning rounded-2 py-2 mb-4">
                                         <div
                                             className="ms-5 fs-6 mb-1"
                                             style={{color: "rgb(27, 65, 168)"}}
                                         >
-                                            Có {totalElements} sản phẩm thuộc danh mục
+                                            Tìm thấy {totalElements} kết quả với từ khoá "
+                                            {displayKeyword}"
                                         </div>
                                         <div className="d-flex ms-5 gap-3 fs-6 align-items-center">
                                             <span>Sắp xếp theo: </span>
@@ -94,7 +114,7 @@ const ProductWithKind = () => {
                                             <span>Cách sắp xếp: </span>
                                             <select
                                                 value={sort}
-                                                onChange={handleSortChange}
+                                                onChange={handleSortDirectionChange}
                                             >
                                                 <option value="asc">Tăng dần</option>
                                                 <option value="desc">Giảm dần</option>
@@ -134,7 +154,6 @@ const ProductWithKind = () => {
                                                     </Link>
                                                     <button
                                                         className="card-btn"
-                                                        // onClick={() => addToCart(el.idProduct)}
                                                     >
                                                         Mua
                                                     </button>
@@ -154,7 +173,6 @@ const ProductWithKind = () => {
                               )}{" "}
                                 VNĐ
                             </span>
-
                                                     </div>
                                                     <div>
                             <span className="actual-price">
@@ -219,10 +237,11 @@ const ProductWithKind = () => {
                             </div>
                         </div>
                     </>
-                )
-                }
+                )}
             </section>
+            <Footer/>
+            <ToastContainer autoClose={2000} className="toast-position"/>
         </>
-    )
-}
-export default ProductWithKind;
+    );
+};
+export default SearchPage;

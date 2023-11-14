@@ -19,7 +19,7 @@ function Login() {
             if (tempURL) {
                 navigate(tempURL);
             } else {
-                navigate(`/cart`);
+                navigate(`/home`);
             }
         } catch (err) {
             Swal.fire({

@@ -1,11 +1,12 @@
 import "../css/Cart.css"
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import {NavLink} from "react-router-dom";
 function Cart() {
     return(
         <>
             <Header />
-            <section className="h-custom" style={{backgroundColor: "#eee", paddingBottom: "56%"}}>
+            <section className="h-custom" style={{backgroundColor: "#eee", paddingBottom: "70%"}}>
                 <div className="container h-100 py-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col">
@@ -226,10 +227,10 @@ function Cart() {
                                                     className="fw-bold mb-5"
                                                     style={{position: "absolute", bottom: 0}}
                                                 >
-                                                    <a href="#!">
+                                                    <NavLink to={'/home'}>
                                                         <i className="fas fa-angle-left me-2"/>
                                                         Quay về shop
-                                                    </a>
+                                                    </NavLink>
                                                 </h5>
                                             </form>
                                         </div>

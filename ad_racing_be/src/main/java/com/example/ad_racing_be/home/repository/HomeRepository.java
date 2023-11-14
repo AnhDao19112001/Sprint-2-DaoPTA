@@ -43,7 +43,7 @@ public interface HomeRepository extends JpaRepository<Product, Long> {
             "p.flag_deleted = false " +
             "AND p.name_product LIKE CONCAT('%', :nameProduct ,'%') " +
             "AND t.name_type LIKE CONCAT('%', :nameType ,'%')",nativeQuery = true)
-    Page<ProductForHomePageDto> getListMedicineWithPagination(@Param("nameProduct") String nameProduct,
+    Page<ProductForHomePageDto> getListProductWithPagination(@Param("nameProduct") String nameProduct,
                                                               @Param("nameType") String nameType,
                                                               Pageable pageable);
 

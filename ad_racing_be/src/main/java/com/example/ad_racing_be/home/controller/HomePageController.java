@@ -38,7 +38,7 @@ public class HomePageController {
                                                                                     @RequestParam(defaultValue = "price",required = false) String sortBy){
         Sort sort1 = Sort.by(Sort.Direction.fromString(sort),sortBy);
         Pageable pageable = PageRequest.of(page,limit,sort1);
-        Page<ProductForHomePageDto> product = homeService.getListMedicineWithPagination(nameProduct, nameType, pageable);
+        Page<ProductForHomePageDto> product = homeService.getListProductWithPagination(nameProduct, nameType, pageable);
         if (product.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
