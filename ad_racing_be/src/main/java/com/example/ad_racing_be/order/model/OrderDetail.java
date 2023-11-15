@@ -1,4 +1,4 @@
-package com.example.ad_racing_be.order;
+package com.example.ad_racing_be.order.model;
 
 import com.example.ad_racing_be.product.model.Product;
 

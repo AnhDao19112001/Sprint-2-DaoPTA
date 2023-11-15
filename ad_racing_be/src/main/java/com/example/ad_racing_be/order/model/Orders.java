@@ -1,4 +1,6 @@
-package com.example.ad_racing_be.order;
+package com.example.ad_racing_be.order.model;
+import com.example.ad_racing_be.user.model.AppUser;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -12,6 +14,10 @@ public class Orders {
     private LocalDateTime dateTime;
     private Boolean flagDeleted;
 
+    @ManyToOne
+    @JoinColumn(name = "app_user_id")
+    private AppUser appUser;
+
     public Orders() {
     }
 
@@ -20,6 +26,22 @@ public class Orders {
         this.code = code;
         this.dateTime = dateTime;
         this.flagDeleted = flagDeleted;
+    }
+
+    public Orders(Long id, String code, LocalDateTime dateTime, Boolean flagDeleted, AppUser appUser) {
+        this.id = id;
+        this.code = code;
+        this.dateTime = dateTime;
+        this.flagDeleted = flagDeleted;
+        this.appUser = appUser;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public Long getId() {

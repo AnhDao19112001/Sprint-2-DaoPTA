@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.css"
+// import "../home/Home.css";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import * as userService from "../../service/user/UserService"
@@ -84,7 +84,7 @@ const Header = ({inputSearch, onInputChange}) => {
                         <i className="fas fa-bars"/>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a className="navbar-brand mt-2 mt-lg-0" href="src/component#">
+                        <NavLink className="navbar-brand mt-2 mt-lg-0" to={`/home`}>
                             <img
                                 src="AD_RACING_logo.png"
                                 height={70}
@@ -92,7 +92,7 @@ const Header = ({inputSearch, onInputChange}) => {
                                 alt="AD RACING"
                                 loading="lazy"
                             />
-                        </a>
+                        </NavLink>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link className="nav-link" to={"/home"}>
@@ -104,20 +104,24 @@ const Header = ({inputSearch, onInputChange}) => {
                                     Về chúng tôi
                                 </a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="src/component#">
-                                    <div className={"type-info"}
-                                    style={{overflow: "hidden"}}>
+                            <li>
+                                <a href="#" className="category">
+                                    <div
+                                        className="category-info mt-2 "
+                                        style={{ overflow: "hidden"}}
+                                    >
                                         Danh mục
                                     </div>
-                                    <div className={"type-dropdown-list"}>
-                                        {
-                                            nameType?.map((type,index) => (
-                                                <Link key={index} to={`/home/list-product/${type.nameType}`} className="category-dropdown-item" >
-                                                    <div className="dropdown-text">{type.nameType}</div>
-                                                </Link>
-                                            ))
-                                        }
+                                    <div className="category-dropdown-list ">
+                                        {nameType?.map((type, index) => (
+                                            <Link
+                                                key={index}
+                                                to={`/home/list-product/${type.nameType}`}
+                                                className="category-dropdown-item"
+                                            >
+                                                <div className="dropdown-text">{type.nameType}</div>
+                                            </Link>
+                                        ))}
                                     </div>
                                 </a>
                             </li>

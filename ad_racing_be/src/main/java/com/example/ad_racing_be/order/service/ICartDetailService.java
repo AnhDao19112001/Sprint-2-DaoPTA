@@ -1,0 +1,12 @@
+package com.example.ad_racing_be.order.service;
+
+import com.example.ad_racing_be.order.dto.ICartDetailDto;
+
+import java.util.List;
+
+public interface ICartDetailService {
+    List<ICartDetailDto> getAllCartDetail(String userName);
+    void addCartDetail(Integer quantity, String userName, Long idProduct);
+    void deleteCartDetail(Long idProduct, String userName);
+    Long findByIdCartDetail(String userName, Long idProduct);
+}

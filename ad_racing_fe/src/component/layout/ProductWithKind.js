@@ -4,6 +4,7 @@ import * as homeService from "../../service/home/HomeService"
 import Header from "./Header";
 import HavingNoResult from "../search/HavingNoResult";
 import * as utils from "../../service/utils/Utils";
+import Footer from "./Footer";
 
 const ProductWithKind = () => {
     const params = useParams();
@@ -31,9 +32,6 @@ const ProductWithKind = () => {
     const getParams = () => {
         setNameType(params.nameType);
     };
-    // const addToCart = async (idProduct) => {
-    //     const isLoggedIn =
-    // }
     const getListProduct = async () => {
         setIsNoContent(false);
         const result = await homeService.searchProduct(
@@ -49,7 +47,7 @@ const ProductWithKind = () => {
             setNameProduct("");
         } else {
             setProductList(result.data.content);
-            setTotalElements(result.data.totalElement);
+            setTotalElements(result.data.totalElements);
             setDisplayType(nameType);
         }
     };
@@ -185,22 +183,39 @@ const ProductWithKind = () => {
                                                 &laquo;
                                             </button>
                                         </li>
-                                        {[...Array(totalPages).keys()].map((page) => (
+
+                                        {[...Array(Number.isInteger(totalPages) && totalPages >= 0 ? totalPages : 1).keys()].map((page) => (
                                             <li
                                                 key={page}
-                                                className={`page-item ${
-                                                    currentPage === page + 1 && "active"
-                                                }`}
+                                                className={`page-item ${currentPage === page + 1 && "active"}`}
                                             >
                                                 <button
                                                     className="page-link"
-                                                    style={{color: "rgb(27, 65, 168)"}}
+                                                    style={{ color: "rgb(27, 65, 168)" }}
                                                     onClick={() => handlePageChange(page + 1)}
                                                 >
                                                     {page + 1}
                                                 </button>
                                             </li>
                                         ))}
+
+                                        {/*{[...Array(totalPages).keys()].map((page) => (*/}
+                                        {/*    <li*/}
+                                        {/*        key={page}*/}
+                                        {/*        className={`page-item ${*/}
+                                        {/*            currentPage === page + 1 && "active"*/}
+                                        {/*        }`}*/}
+                                        {/*    >*/}
+                                        {/*        <button*/}
+                                        {/*            className="page-link"*/}
+                                        {/*            style={{color: "rgb(27, 65, 168)"}}*/}
+                                        {/*            onClick={() => handlePageChange(page + 1)}*/}
+                                        {/*        >*/}
+                                        {/*            {page + 1}*/}
+                                        {/*        </button>*/}
+                                        {/*    </li>*/}
+                                        {/*))}*/}
+
                                         <li
                                             className={`page-item ${
                                                 currentPage === totalPages && "disabled"
@@ -222,6 +237,7 @@ const ProductWithKind = () => {
                 )
                 }
             </section>
+            <Footer />
         </>
     )
 }

@@ -1,4 +1,4 @@
-package com.example.ad_racing_be.order;
+package com.example.ad_racing_be.order.model;
 
 import com.example.ad_racing_be.product.model.Product;
 import com.example.ad_racing_be.user.model.AppUser;
@@ -10,6 +10,7 @@ public class CartDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "app_user_id",referencedColumnName = "id")
     private AppUser appUser;
@@ -22,6 +23,13 @@ public class CartDetail {
 
     public CartDetail(Long id, AppUser appUser, Product product) {
         this.id = id;
+        this.appUser = appUser;
+        this.product = product;
+    }
+
+    public CartDetail(Long id, Integer quantity, AppUser appUser, Product product) {
+        this.id = id;
+        this.quantity = quantity;
         this.appUser = appUser;
         this.product = product;
     }
@@ -48,5 +56,13 @@ public class CartDetail {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
