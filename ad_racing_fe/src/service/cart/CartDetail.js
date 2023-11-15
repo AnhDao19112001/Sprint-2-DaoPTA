@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getListCartDetail = async (userName) => {
     try {
-        const result = await axios.get(`http://localhost:8080/api/cart-detail/list?username=${userName}`);
+        const result = await axios.get(`http://localhost:8080/api/cart-detail/list?userName=${userName}`);
         return result;
     }catch (error){
         console.log(error);

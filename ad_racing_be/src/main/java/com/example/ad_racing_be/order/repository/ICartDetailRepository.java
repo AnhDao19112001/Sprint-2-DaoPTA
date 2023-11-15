@@ -39,5 +39,5 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Long> {
     @Query(value = "SELECT c.id FROM cart_detail c " +
             "WHERE c.id_product = :idProduct " +
             "AND c.app_user_id = :appUserId",nativeQuery = true)
-    Long getIdByCart(Long idProduct, Long appUserId);
+    Long getIdByCart(Long appUserId,Long idProduct);
 }

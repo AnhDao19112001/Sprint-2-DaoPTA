@@ -48,7 +48,6 @@ export const SearchPage = () => {
             sort,
             sortBy
         );
-        console.log(response);
         if (response.status === 204) {
             setIsNoContent(true);
             setNameProduct("");

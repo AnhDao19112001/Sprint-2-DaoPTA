@@ -14,6 +14,9 @@ import * as utils from "../../service/utils/Utils";
 import arrow from "../../img/arrow.png"
 import 'swiper/css';
 import 'swiper/css/pagination';
+import {infoAppUserByJwtToken} from "../../service/user/UserService";
+import {createCartDetail} from "../../service/cart/CartDetail";
+import Swal from "sweetalert2";
 
 
 function HomePage() {
@@ -24,6 +27,30 @@ function HomePage() {
     const [productForChildren, setProductForChildren] = useState([]);
     const [appUserId, setAppUserId] = useState(null);
 
+    const addCartDetail = async (a) => {
+        const result = infoAppUserByJwtToken();
+        if (result != null) {
+            const response = await createCartDetail(1,result.sub,a.idProduct);
+            console.log(">>>" , response);
+            if (response.status === 204){
+                Swal.fire({
+                    title:"Sản phẩm đã tồn tại trong giỏ hàng!",
+                    icon: "warning",
+                });
+            } if (response.status === 201){
+                Swal.fire({
+                    title:"Thêm sản phẩm thành công!",
+                    icon: "success",
+                });
+            }
+        } else {
+            Swal.fire({
+                title:"Vui lòng đăng nhập!!",
+                icon: "warning",
+            });
+            navigate(`/login`)
+        }
+    }
     const getProductList = async () => {
         const result = await homeService.findProductForHomePage("", "");
         setProductList(result.data);
@@ -183,6 +210,7 @@ function HomePage() {
                                             </Link>
                                             <button
                                                 className="card-btn"
+                                                onClick={() => addCartDetail(el)}
                                             >
                                                 Mua
                                             </button>

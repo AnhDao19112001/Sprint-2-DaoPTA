@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
+
 const Header = ({inputSearch, onInputChange}) => {
     const navigate = useNavigate();
     const [JwtToken, setJwtToken] = useState(localStorage.getItem("JWT"));
@@ -108,7 +109,7 @@ const Header = ({inputSearch, onInputChange}) => {
                                 <a href="#" className="category">
                                     <div
                                         className="category-info mt-2 "
-                                        style={{ overflow: "hidden"}}
+                                        style={{overflow: "hidden"}}
                                     >
                                         Danh mục
                                     </div>
@@ -127,7 +128,7 @@ const Header = ({inputSearch, onInputChange}) => {
                             </li>
                         </ul>
                     </div>
-                    <form className="header-search-form for-des" style={{paddingRight:"5px"}}>
+                    <form className="header-search-form for-des" style={{paddingRight: "5px"}}>
                         <input
                             type="search"
                             id="form-input-home"
@@ -140,14 +141,14 @@ const Header = ({inputSearch, onInputChange}) => {
                             }}
                         />
                         <button type="submit" onClick={(e) => handleSearch(e)}>
-                            <CiSearch />
+                            <CiSearch/>
                         </button>
                     </form>
-                    <NavLink to={`/cart`} style={{position:"relative",marginRight:"2%",color:"black"}}>
+                    <NavLink to={`/cart`} style={{position: "relative", marginRight: "2%", color: "black"}}>
 
                         <AiOutlineShoppingCart size="2em"/><span style={{position: "absolute"}}>4</span>
 
-                        </NavLink>
+                    </NavLink>
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                             {!userName ? (
@@ -178,7 +179,7 @@ const Header = ({inputSearch, onInputChange}) => {
                 </div>
             </nav>
         </>
-    )
-}
+    );
+};
 
 export default Header;
