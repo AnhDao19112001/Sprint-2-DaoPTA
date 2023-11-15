@@ -2,7 +2,24 @@ import "../css/Cart.css"
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import {NavLink} from "react-router-dom";
+import {useState} from "react";
+import {infoAppUserByJwtToken} from "../service/user/UserService";
+import * as cartService from "../service/cart/CartDetail";
+import {Paypal} from "./Paypal";
+
 function Cart() {
+    const [checkout, setCheckout] = useState(false);
+    const [cartDetail, setCartDetail] = useState([]);
+    const getCartDetail = async () => {
+        const result = infoAppUserByJwtToken();
+        if (result != null){
+            const response = await cartService.getListCartDetail(result.sub);
+            setCartDetail(response.data);
+        }
+    }
+
+    // const deleteCart = async ()
+
     return(
         <>
             <Header />
@@ -148,91 +165,14 @@ function Cart() {
                                                 <h5 className="fw-bold mb-0">5.400.000vnđ</h5>
                                             </div>
                                         </div>
-                                        <div className="col-lg-6 px-5 py-4">
-                                            <h3 className="mb-5 pt-2 text-center fw-bold text-uppercase">
-                                                Payment
-                                            </h3>
-                                            <form className="mb-5">
-                                                <div className="form-outline mb-5">
-                                                    <input
-                                                        type="text"
-                                                        id="typeText"
-                                                        className="form-control form-control-lg"
-                                                        siez={17}
-                                                        defaultValue="1234 5678 9012 3457"
-                                                        minLength={19}
-                                                        maxLength={19}
-                                                    />
-                                                    <label className="form-label" htmlFor="typeText">
-                                                        Card Number
-                                                    </label>
-                                                </div>
-                                                <div className="form-outline mb-5">
-                                                    <input
-                                                        type="text"
-                                                        id="typeName"
-                                                        className="form-control form-control-lg"
-                                                        siez={17}
-                                                        defaultValue="John Smith"
-                                                    />
-                                                    <label className="form-label" htmlFor="typeName">
-                                                        Name on card
-                                                    </label>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-md-6 mb-5">
-                                                        <div className="form-outline">
-                                                            <input
-                                                                type="text"
-                                                                id="typeExp"
-                                                                className="form-control form-control-lg"
-                                                                defaultValue="01/22"
-                                                                size={7}
-                                                                minLength={7}
-                                                                maxLength={7}
-                                                            />
-                                                            <label className="form-label" htmlFor="typeExp">
-                                                                Expiration
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-6 mb-5">
-                                                        <div className="form-outline">
-                                                            <input
-                                                                type="password"
-                                                                id="typeText"
-                                                                className="form-control form-control-lg"
-                                                                defaultValue="●●●"
-                                                                size={1}
-                                                                minLength={3}
-                                                                maxLength={3}
-                                                            />
-                                                            <label className="form-label" htmlFor="typeText">
-                                                                Cvv
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p className="mb-5">
-                                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit{" "}
-                                                    <a href="#!">obcaecati sapiente</a>.
-                                                </p>
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-primary btn-block btn-lg"
-                                                >
-                                                    Buy now
-                                                </button>
-                                                <h5
-                                                    className="fw-bold mb-5"
-                                                    style={{position: "absolute", bottom: 0}}
-                                                >
-                                                    <NavLink to={'/home'}>
-                                                        <i className="fas fa-angle-left me-2"/>
-                                                        Quay về shop
-                                                    </NavLink>
-                                                </h5>
-                                            </form>
+                                        <div>
+                                            {
+                                                checkout ? (
+                                                    <Paypal />
+                                                ) : (
+                                                    <button onClick={() => setCheckout(true)} type="button" className={"btn btn-outline-primary"}>Thanh toán</button>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                 </div>

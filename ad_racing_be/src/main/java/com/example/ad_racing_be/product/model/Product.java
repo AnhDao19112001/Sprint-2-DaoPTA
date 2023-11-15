@@ -11,6 +11,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProduct;
     private String nameProduct;
+    private Integer quantity;
     private String codeProduct;
     private Float price;
     @Column(columnDefinition = "LONGTEXT")
@@ -27,15 +28,24 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long idProduct, String nameProduct, String codeProduct, Float price, String description, Boolean flagDeleted, List<Image> images, TypeProduct typeProduct) {
+    public Product(Long idProduct, String nameProduct, Integer quantity, String codeProduct, Float price, String description, Boolean flagDeleted, List<Image> images, TypeProduct typeProduct) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
+        this.quantity = quantity;
         this.codeProduct = codeProduct;
         this.price = price;
         this.description = description;
         this.flagDeleted = flagDeleted;
         this.images = images;
         this.typeProduct = typeProduct;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Long getIdProduct() {
