@@ -9,4 +9,6 @@ public interface ICartDetailService {
     void addCartDetail(Integer quantity, String userName, Long idProduct);
     void deleteCartDetail(Long idProduct, String userName);
     Long findByIdCartDetail(String userName, Long idProduct);
+    void increaseQuantity(String userName, Long idProduct);
+    void reduceQuantity(String userName, Long idProduct);
 }

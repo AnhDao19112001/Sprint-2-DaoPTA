@@ -26,7 +26,8 @@ public class CartDetailController {
                                            @RequestParam Long idProduct){
         Long cartDetail = cartDetailService.findByIdCartDetail(userName, idProduct);
         if (cartDetail != null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            cartDetailService.increaseQuantity(userName, idProduct);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         cartDetailService.addCartDetail(quantity, userName, idProduct);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -35,6 +36,18 @@ public class CartDetailController {
     public ResponseEntity<?> deletedCartDetail (@RequestParam("idProduct") Long idProduct,
                                                 String userName){
         cartDetailService.deleteCartDetail(idProduct, userName);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/increase")
+    public ResponseEntity<?> increaseQuantity(@RequestParam String userName,
+                                              @RequestParam Long idProduct){
+        cartDetailService.increaseQuantity(userName, idProduct);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/reduce")
+    public ResponseEntity<?> reduceQuantity(@RequestParam String userName,
+                                            @RequestParam Long idProduct){
+        cartDetailService.reduceQuantity(userName, idProduct);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

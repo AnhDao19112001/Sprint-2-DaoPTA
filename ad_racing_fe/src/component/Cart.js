@@ -7,7 +7,7 @@ import {infoAppUserByJwtToken} from "../service/user/UserService";
 import * as cartService from "../service/cart/CartDetail";
 import {Paypal} from "./Paypal";
 import Swal from "sweetalert2";
-
+import { TiDelete } from "react-icons/ti";
 function Cart() {
     const [checkout, setCheckout] = useState(false);
     const [cartDetail, setCartDetail] = useState([]);
@@ -16,6 +16,50 @@ function Cart() {
         if (result != null) {
             const response = await cartService.getListCartDetail(result.sub);
             setCartDetail(response.data);
+        }
+    }
+
+    const handleIncrease = async (c) => {
+        let quantity = document.getElementById("input-quantity" + c.idProduct)
+        quantity.value = parseInt(quantity.value) + 1;
+        const result = infoAppUserByJwtToken();
+        await cartService.increase(result.sub, c.idProduct);
+        getCartDetail();
+    }
+
+    const handleReduce = async (c) => {
+        let quantity = document.getElementById("input-quantity" + c.idProduct);
+        try {
+            if (quantity.value <= 1){
+                Swal.fire({
+                    title:`Bạn có muốn xóa ${c.nameProduct} khỏi giỏ hàng?`,
+                    icon:"question",
+                    showCancelButton:true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: "Huỷ",
+                })
+                    .then(async (confirm) => {
+                        if (confirm.isConfirmed){
+                            const result = infoAppUserByJwtToken();
+                            await cartService.deleteCartDetail(result.sub, c.idProduct);
+                            Swal.fire({
+                                title: `Xóa ${c.nameProduct} thành công!`,
+                                icon: "success",
+                            })
+                            getCartDetail();
+                        }
+                })
+            }
+            if (quantity.value > 1){
+                quantity.value = parseInt(quantity.value) - 1;
+                const result = infoAppUserByJwtToken();
+                await cartService.reduceQuantity(result.sub,c.idProduct);
+                getCartDetail();
+            }
+        }catch (error) {
+            console.log(error);
         }
     }
 
@@ -46,6 +90,7 @@ function Cart() {
 
     useEffect(() => {
         getCartDetail();
+
     }, []);
 
     return (<>
@@ -77,23 +122,30 @@ function Cart() {
                                                     </a>
                                                     <h5 className="text-primary">{c.nameProduct}</h5>
                                                     <div className="d-flex align-items-center">
-                                                        <p className="fw-bold mb-0 me-5 pe-3">{c.price}</p>
+                                                        <p className="fw-bold mb-0 me-5 pe-3">{c.price * c.quantity}</p>
                                                         <div className="def-number-input number-input safari_only">
                                                             <button
-                                                                onClick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                                onClick={() => handleReduce(c)}
                                                                 className="minus"
                                                             />
                                                             <input
+                                                                id={`input-quantity${c.idProduct}`}
                                                                 className="quantity fw-bold text-black"
-                                                                min={0}
+                                                                min="1"
+                                                                max="20"
                                                                 name="quantity"
-                                                                defaultValue={1}
+                                                                defaultValue={c.quantity}
                                                                 type="number"
                                                             />
                                                             <button
-                                                                onClick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                                onClick={() => handleIncrease(c)}
                                                                 className="plus"
                                                             />
+                                                            {/*<button*/}
+                                                            {/*    onClick={() => deleteCart(c)}*/}
+                                                            {/*    className="ms-5"*/}
+                                                            {/*><TiDelete /></button>*/}
+                                                            <span onClick={() => deleteCart(c)} className={"ms-5 mb-2"}><TiDelete/></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,10 +157,6 @@ function Cart() {
                                                 height: 2, backgroundColor: "#1266f1", opacity: 1
                                             }}
                                         />
-                                        <div className="d-flex justify-content-between px-x">
-                                            <p className="fw-bold">Chiết khấu:</p>
-                                            <p className="fw-bold">50.000vnđ</p>
-                                        </div>
                                         <div
                                             className="d-flex justify-content-between p-2 mb-2"
                                             style={{backgroundColor: "#e1f5fe"}}

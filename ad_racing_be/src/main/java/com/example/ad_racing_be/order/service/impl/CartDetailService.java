@@ -39,4 +39,16 @@ public class CartDetailService implements ICartDetailService {
         AppUser appUser = appUserRepository.findAppUserByName(userName);
         return cartDetailRepository.getIdByCart(appUser.getId(),idProduct);
     }
+
+    @Override
+    public void increaseQuantity(String userName, Long idProduct) {
+        AppUser appUser = appUserRepository.findAppUserByName(userName);
+        cartDetailRepository.increaseQuantity(appUser.getId(), idProduct);
+    }
+
+    @Override
+    public void reduceQuantity(String userName, Long idProduct) {
+        AppUser appUser = appUserRepository.findAppUserByName(userName);
+        cartDetailRepository.reduceQuantity(appUser.getId(), idProduct);
+    }
 }

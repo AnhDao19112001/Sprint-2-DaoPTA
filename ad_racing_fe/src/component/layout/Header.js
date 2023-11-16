@@ -8,7 +8,7 @@ import {AiOutlineShoppingCart} from "react-icons/ai";
 import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
 
-const Header = ({inputSearch, onInputChange}) => {
+const Header = ({ inputSearch, onInputChange }) => {
     const navigate = useNavigate();
     const [JwtToken, setJwtToken] = useState(localStorage.getItem("JWT"));
     const [userName, setUserName] = useState("");
@@ -128,54 +128,56 @@ const Header = ({inputSearch, onInputChange}) => {
                             </li>
                         </ul>
                     </div>
-                    <form className="header-search-form for-des" style={{paddingRight: "5px"}}>
-                        <input
-                            type="search"
-                            id="form-input-home"
-                            className="form-input m-0"
-                            placeholder="Tìm kiếm..."
-                            value={inputSearch}
-                            onChange={(event) => {
-                                handleInputChange(event);
-                                onInputChange(event);
-                            }}
-                        />
-                        <button type="submit" onClick={(e) => handleSearch(e)}>
-                            <CiSearch/>
-                        </button>
-                    </form>
-                    <NavLink to={`/cart`} style={{position: "relative", marginRight: "2%", color: "black"}}>
+                    <div className="header-right col-lg-6 d-flex align-items-center justify-content-end">
+                        <form className="header-search-form for-des" style={{paddingRight: "5px"}}>
+                            <input
+                                type="search"
+                                id="form-input-home"
+                                className="form-input m-0"
+                                placeholder="Tìm kiếm..."
+                                value={inputSearch}
+                                onChange={(event) => {
+                                    handleInputChange(event);
+                                    onInputChange(event);
+                                }}
+                            />
+                            <button type="submit" onClick={(e) => handleSearch(e)}>
+                                <CiSearch/>
+                            </button>
+                        </form>
+                        <NavLink to={`/cart`} style={{position: "relative", marginRight: "2%", color: "black"}}>
 
-                        <AiOutlineShoppingCart size="2em"/><span style={{position: "absolute"}}>4</span>
+                            <AiOutlineShoppingCart size="2em"/><span style={{position: "absolute"}}>4</span>
 
-                    </NavLink>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {!userName ? (
-                                <Link to="/login">
-                                    <span className="user-info" style={{color: "black"}}>Đăng nhập</span>
-                                </Link>
-                            ) : (
-                                <span className="user-info" style={{overflow: "hidden"}}>
+                        </NavLink>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                {!userName ? (
+                                    <Link to="/login">
+                                        <span className="user-info" style={{color: "black"}}>Đăng nhập</span>
+                                    </Link>
+                                ) : (
+                                    <span className="user-info" style={{overflow: "hidden"}}>
                                 {userName.sub}
                             </span>
-                            )}
-                        </Dropdown.Toggle>
+                                )}
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            {JwtToken ? (
-                                <>
-                                    <Dropdown.Item as={Link} to={`/user-info/${userId}`}>Thông tin</Dropdown.Item>
-                                    {(roleAdmin || roleCustomer) && (
-                                        <Dropdown.Item as={Link} to={"/dashboard/retail"}>Chức năng</Dropdown.Item>
-                                    )}
-                                    <Dropdown.Item onClick={() => {
-                                        handleLogout();
-                                    }}>Đăng xuất</Dropdown.Item>
-                                </>
-                            ) : null}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                            <Dropdown.Menu>
+                                {JwtToken ? (
+                                    <>
+                                        <Dropdown.Item as={Link} to={`/user-info/${userId}`}>Thông tin</Dropdown.Item>
+                                        {(roleAdmin || roleCustomer) && (
+                                            <Dropdown.Item as={Link} to={"/dashboard/retail"}>Chức năng</Dropdown.Item>
+                                        )}
+                                        <Dropdown.Item onClick={() => {
+                                            handleLogout();
+                                        }}>Đăng xuất</Dropdown.Item>
+                                    </>
+                                ) : null}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                 </div>
             </nav>
         </>

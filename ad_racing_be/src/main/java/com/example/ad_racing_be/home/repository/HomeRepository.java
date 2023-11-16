@@ -27,7 +27,7 @@ public interface HomeRepository extends JpaRepository<Product, Long> {
             "AND p.name_product LIKE CONCAT('%', :nameProduct ,'%') " +
             "AND t.name_type LIKE CONCAT('%', :nameType ,'%') " +
             "GROUP BY " +
-            "P.id_product, p.name_product, p.price, t.name_type ORDER BY p.id_product DESC",nativeQuery = true)
+            "P.id_product, p.name_product, p.price, t.name_type ORDER BY p.id_product DESC LIMIT 10",nativeQuery = true)
     List<ProductForHomePageDto> findProductForHomePage(@Param("nameProduct") String nameProduct, @Param("nameType") String nameType);
 
     @Query(value = "SELECT " +

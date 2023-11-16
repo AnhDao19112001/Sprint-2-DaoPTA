@@ -31,18 +31,10 @@ function HomePage() {
         const result = infoAppUserByJwtToken();
         if (result != null) {
             const response = await createCartDetail(1,result.sub,a.idProduct);
-            console.log(">>>" , response);
-            if (response.status === 204){
-                Swal.fire({
-                    title:"Sản phẩm đã tồn tại trong giỏ hàng!",
-                    icon: "warning",
-                });
-            } if (response.status === 201){
-                Swal.fire({
-                    title:"Thêm sản phẩm thành công!",
-                    icon: "success",
-                });
-            }
+            Swal.fire({
+                title:"Thêm sản phẩm thành công!",
+                icon:"success",
+            })
         } else {
             Swal.fire({
                 title:"Vui lòng đăng nhập!!",
@@ -75,7 +67,7 @@ function HomePage() {
     }
 
     return (<>
-        <Header/>
+        <Header onInputChange={() => {}}/>
         <Swiper
             id="template-mo-zay-hero-carousel"
             className="mySwiper"
@@ -293,9 +285,7 @@ function HomePage() {
                                             </Link>
                                             <button
                                                 className="card-btn"
-                                            >
-                                                Mua
-                                            </button>
+                                                onClick={() => addCartDetail(el)}> Mua </button>
                                         </div>
                                         <div className="product-info">
                                             <p className="product-short-description">

@@ -90,7 +90,7 @@
 }
 
 .shopping-cart .def-number-input.number-input input[type=number] {
-    max-width: 2rem;
+    max-width: 2.5rem;
     border: none;
 }
 

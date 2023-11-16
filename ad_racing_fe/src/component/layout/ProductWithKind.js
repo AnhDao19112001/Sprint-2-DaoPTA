@@ -63,8 +63,7 @@ const ProductWithKind = () => {
     const totalPages = Math.ceil(totalElements / pageSize);
     return (
         <>
-            <Header onInputChange={() => {
-            }}/>
+            <Header onInputChange={() => {}}/>
             <section
                 className="our-menu bg-light repeat-img pb-5" style={{padding: "7rem 0 0"}}>
                 {isNoContent ? (<HavingNoResult/>) : (
