@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap"
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as homeService from "../../service/home/HomeService";
 import Header from "../layout/Header";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -14,9 +14,11 @@ import * as utils from "../../service/utils/Utils";
 import arrow from "../../img/arrow.png"
 import 'swiper/css';
 import 'swiper/css/pagination';
-import {infoAppUserByJwtToken} from "../../service/user/UserService";
-import {createCartDetail} from "../../service/cart/CartDetail";
+import {getIdByUserName, infoAppUserByJwtToken} from "../../service/user/UserService";
+import { getAllCarts } from "../order/reduce/cartAction";
 import Swal from "sweetalert2";
+import {createCartDetail} from "../../service/cart/CartDetail";
+import {toast} from "react-toastify";
 
 
 function HomePage() {
@@ -25,7 +27,7 @@ function HomePage() {
     const [favoriteList, setFavoriteList] = useState([]);
     const [ProductListWithKind, setProductListWithKind] = useState([]);
     const [productForChildren, setProductForChildren] = useState([]);
-    const [appUserId, setAppUserId] = useState(null);
+    const carts = useSelector((state) => state.cartReducer)
 
     const addCartDetail = async (a) => {
         const result = infoAppUserByJwtToken();
@@ -43,6 +45,7 @@ function HomePage() {
             navigate(`/login`)
         }
     }
+
     const getProductList = async () => {
         const result = await homeService.findProductForHomePage("", "");
         setProductList(result.data);
@@ -93,7 +96,7 @@ function HomePage() {
                         <div className="col-lg-6 mb-0 d-flex align-items-center">
                             <div className="text-align-left align-self-center">
                                 <h1 className="h1 text-success">
-                                    <b>AD</b> RAYCING
+                                    <b>AD</b> RACING
                                 </h1>
                                 <h3 className="h2">
                                     Hàng mới phù hợp với nhiều loại xe

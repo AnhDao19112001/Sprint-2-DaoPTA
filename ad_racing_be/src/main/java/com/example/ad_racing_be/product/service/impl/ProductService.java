@@ -68,4 +68,9 @@ public class ProductService implements IProductService {
             return findAllProduct(pageable, search);
         }
     }
+
+    @Override
+    public boolean existsByIdAndFlagDeletedIsFalse(Long idProduct) {
+        return productRepository.existsByIdProductAndFlagDeletedIsFalse(idProduct);
+    }
 }

@@ -43,3 +43,8 @@ export const reduceQuantity = async (userName, idProduct) => {
         console.log(error);
     }
 }
+
+export const checkQuantity = async (idProduct, inputQuantity) => {
+    const result = await axios.get(`http://localhost:8080/api/cart-detail/check-quantity?idProduct=${idProduct}&inputQuantity=${inputQuantity}`);
+    return result.status;
+}

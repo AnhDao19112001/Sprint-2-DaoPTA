@@ -16,4 +16,5 @@ public interface IProductService {
     Page<IProductDto> searchByPriceWitchPrice(Pageable pageable, Float priceProduct);
     Page<IProductDto> searchByPriceSmallPrice(Pageable pageable, Float priceProduct);
     Page<IProductDto> searchByPrice(Pageable pageable, String search, String conditional);
+    boolean existsByIdAndFlagDeletedIsFalse(Long idProduct);
 }

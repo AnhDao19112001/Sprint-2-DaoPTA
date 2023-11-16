@@ -1,6 +1,7 @@
 package com.example.ad_racing_be.order.service.impl;
 
 import com.example.ad_racing_be.order.dto.ICartDetailDto;
+import com.example.ad_racing_be.order.dto.ProductProjection;
 import com.example.ad_racing_be.order.repository.ICartDetailRepository;
 import com.example.ad_racing_be.order.service.ICartDetailService;
 import com.example.ad_racing_be.user.model.AppUser;
@@ -50,5 +51,10 @@ public class CartDetailService implements ICartDetailService {
     public void reduceQuantity(String userName, Long idProduct) {
         AppUser appUser = appUserRepository.findAppUserByName(userName);
         cartDetailRepository.reduceQuantity(appUser.getId(), idProduct);
+    }
+
+    @Override
+    public ProductProjection getProductToCheck(Long idProduct) {
+        return cartDetailRepository.getProduct(idProduct);
     }
 }

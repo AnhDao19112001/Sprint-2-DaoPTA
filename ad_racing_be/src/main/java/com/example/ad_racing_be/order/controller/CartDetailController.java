@@ -1,7 +1,9 @@
 package com.example.ad_racing_be.order.controller;
 
 import com.example.ad_racing_be.order.dto.ICartDetailDto;
+import com.example.ad_racing_be.order.dto.ProductProjection;
 import com.example.ad_racing_be.order.service.ICartDetailService;
+import com.example.ad_racing_be.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.List;
 public class CartDetailController {
     @Autowired
     private ICartDetailService cartDetailService;
+    @Autowired
+    private IProductService productService;
     @GetMapping("/list")
     public ResponseEntity<List<ICartDetailDto>> findAllCartDetail(@RequestParam String userName){
         List<ICartDetailDto> cartDetailDtos = cartDetailService.getAllCartDetail(userName);
@@ -49,5 +53,15 @@ public class CartDetailController {
                                             @RequestParam Long idProduct){
         cartDetailService.reduceQuantity(userName, idProduct);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/check-quantity")
+    public ResponseEntity<?> checkQuantity(@RequestParam("idProduct") Long idProduct,
+                                           @RequestParam("inputQuantity") Long inputQuantity){
+        ProductProjection projection = cartDetailService.getProductToCheck(idProduct);
+        if (productService.existsByIdAndFlagDeletedIsFalse(idProduct)
+            && projection.getQuantity() >= inputQuantity){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 }

@@ -11,6 +11,7 @@ public class OrderDetail {
     private Long id;
     private Integer quantity;
     private Double currentPrice;
+    private Boolean flagDeleted;
     @ManyToOne
     @JoinColumn(name = "id_order", referencedColumnName = "id")
     private Orders orders;
@@ -21,10 +22,11 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(Long id, Integer quantity, Double currentPrice, Orders orders, Product product) {
+    public OrderDetail(Long id, Integer quantity, Double currentPrice, Boolean flagDeleted, Orders orders, Product product) {
         this.id = id;
         this.quantity = quantity;
         this.currentPrice = currentPrice;
+        this.flagDeleted = flagDeleted;
         this.orders = orders;
         this.product = product;
     }
@@ -53,11 +55,19 @@ public class OrderDetail {
         this.currentPrice = currentPrice;
     }
 
-    public Orders getOrder() {
+    public Boolean getFlagDeleted() {
+        return flagDeleted;
+    }
+
+    public void setFlagDeleted(Boolean flagDeleted) {
+        this.flagDeleted = flagDeleted;
+    }
+
+    public Orders getOrders() {
         return orders;
     }
 
-    public void setOrder(Orders orders) {
+    public void setOrders(Orders orders) {
         this.orders = orders;
     }
 

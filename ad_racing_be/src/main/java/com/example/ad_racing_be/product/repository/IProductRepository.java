@@ -74,4 +74,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "type_product t ON p.id_type = t.id_type " +
             "WHERE p.flag_deleted = false",nativeQuery = true)
     List<Product> findAllProduct();
+
+    boolean existsByIdProductAndFlagDeletedIsFalse(Long idProduct);
 }

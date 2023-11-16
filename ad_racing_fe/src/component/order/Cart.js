@@ -1,14 +1,16 @@
-import "../css/Cart.css"
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
-import {NavLink} from "react-router-dom";
+import "../../css/Cart.css"
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 import {useEffect, useState} from "react";
-import {infoAppUserByJwtToken} from "../service/user/UserService";
-import * as cartService from "../service/cart/CartDetail";
-import {Paypal} from "./Paypal";
+import {infoAppUserByJwtToken} from "../../service/user/UserService";
+import * as cartService from "../../service/cart/CartDetail";
+import {Paypal} from "../Paypal";
 import Swal from "sweetalert2";
-import { TiDelete } from "react-icons/ti";
+import {TiDelete} from "react-icons/ti";
+import {checkQuantity, createCartDetail} from "../../service/cart/CartDetail";
+
 function Cart() {
+    const [isUpdated, setIsUpdated] = useState(false);
     const [checkout, setCheckout] = useState(false);
     const [cartDetail, setCartDetail] = useState([]);
     const getCartDetail = async () => {
@@ -19,29 +21,51 @@ function Cart() {
         }
     }
 
-    const handleIncrease = async (c) => {
-        let quantity = document.getElementById("input-quantity" + c.idProduct)
-        quantity.value = parseInt(quantity.value) + 1;
-        const result = infoAppUserByJwtToken();
-        await cartService.increase(result.sub, c.idProduct);
-        getCartDetail();
+    // const handleIncrease = async (c) => {
+    //     let quantity = document.getElementById("input-quantity" + c.idProduct)
+    //     quantity.value = parseInt(quantity.value) + 1;
+    //     const result = infoAppUserByJwtToken();
+    //     await cartService.increase(result.sub, c.idProduct);
+    //     getCartDetail();
+    // }
+
+    const handleIncrease = async (idProduct, proQuantity) => {
+        let quantity = document.getElementById("input-quantity" + idProduct);
+        let quantityInStock = proQuantity;
+        try {
+            const result = await checkQuantity(idProduct, parseInt(quantity.value) + 1);
+            if (quantity.value < 99) {
+                quantity.value = parseInt(quantity.value) + 1;
+            } else {
+                quantity.value = 99
+            }
+            const response = infoAppUserByJwtToken();
+            await cartService.increase(response.sub, idProduct);
+            getCartDetail();
+        } catch (error) {
+            Swal.fire({
+                title: "Sản phẩm vượt quá số lượng cho phép!",
+                html: `Số lượng còn lại ở kho là ${quantityInStock}`,
+                icon: "warning",
+            });
+        }
     }
 
     const handleReduce = async (c) => {
         let quantity = document.getElementById("input-quantity" + c.idProduct);
         try {
-            if (quantity.value <= 1){
+            if (quantity.value <= 1) {
                 Swal.fire({
-                    title:`Bạn có muốn xóa ${c.nameProduct} khỏi giỏ hàng?`,
-                    icon:"question",
-                    showCancelButton:true,
+                    title: `Bạn có muốn xóa ${c.nameProduct} khỏi giỏ hàng?`,
+                    icon: "question",
+                    showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Đồng ý",
                     cancelButtonText: "Huỷ",
                 })
                     .then(async (confirm) => {
-                        if (confirm.isConfirmed){
+                        if (confirm.isConfirmed) {
                             const result = infoAppUserByJwtToken();
                             await cartService.deleteCartDetail(result.sub, c.idProduct);
                             Swal.fire({
@@ -50,15 +74,15 @@ function Cart() {
                             })
                             getCartDetail();
                         }
-                })
+                    })
             }
-            if (quantity.value > 1){
+            if (quantity.value > 1) {
                 quantity.value = parseInt(quantity.value) - 1;
                 const result = infoAppUserByJwtToken();
-                await cartService.reduceQuantity(result.sub,c.idProduct);
+                await cartService.reduceQuantity(result.sub, c.idProduct);
                 getCartDetail();
             }
-        }catch (error) {
+        } catch (error) {
             console.log(error);
         }
     }
@@ -117,7 +141,7 @@ function Cart() {
                                                     />
                                                 </div>
                                                 <div className="flex-grow-1 ms-3">
-                                                    <a href="#!" className="float-end text-black">
+                                                    <a href="src/component#!" className="float-end text-black">
                                                         <i className="fas fa-times"/>
                                                     </a>
                                                     <h5 className="text-primary">{c.nameProduct}</h5>
@@ -138,13 +162,10 @@ function Cart() {
                                                                 type="number"
                                                             />
                                                             <button
-                                                                onClick={() => handleIncrease(c)}
+                                                                onClick={() => handleIncrease(c.idProduct,
+                                                                c.quantity)}
                                                                 className="plus"
                                                             />
-                                                            {/*<button*/}
-                                                            {/*    onClick={() => deleteCart(c)}*/}
-                                                            {/*    className="ms-5"*/}
-                                                            {/*><TiDelete /></button>*/}
                                                             <span onClick={() => deleteCart(c)} className={"ms-5 mb-2"}><TiDelete/></span>
                                                         </div>
                                                     </div>

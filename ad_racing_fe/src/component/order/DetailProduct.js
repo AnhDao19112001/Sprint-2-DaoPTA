@@ -1,6 +1,6 @@
-import "../css/DetailProduct.css"
-import Header from "./layout/Header";
-import Footer from "./layout/Footer";
+import "../../css/DetailProduct.css"
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 function DetailProduct() {
     return (
         <>
@@ -82,7 +82,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                             style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -99,7 +99,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -116,7 +116,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -133,7 +133,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -150,7 +150,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -167,7 +167,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -184,7 +184,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -201,7 +201,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>
@@ -218,7 +218,7 @@ function DetailProduct() {
                             <div className="box-support" style={{fontSize:"100%", verticalAlign:"baseline", background: "transparent"}}>
                                 <div style={{width:"250px", float:"left", margin:"0 10px 20px 0", fontFamily:"RR", color:"#1e1e1e", textAlign: "justify"}}>
                                     <div style={{overflow:"hidden", marginLeft:"5px" ,padding:"4px",border:"1px solid #ebebeb"}}>
-                                        <a href="#">
+                                        <a href="src/component#">
                                             <img src="https://khoadenxe.com/upload/filemanager/bi%20b11%202200k%2022.jpg"
                                                  style={{width:202,height:205, marginLeft:"3px"}}/>
                                         </a>

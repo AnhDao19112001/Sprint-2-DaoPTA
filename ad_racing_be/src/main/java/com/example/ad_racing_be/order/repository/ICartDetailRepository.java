@@ -1,10 +1,12 @@
 package com.example.ad_racing_be.order.repository;
 
 import com.example.ad_racing_be.order.dto.ICartDetailDto;
+import com.example.ad_racing_be.order.dto.ProductProjection;
 import com.example.ad_racing_be.order.model.CartDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -57,4 +59,18 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Long> {
             "AND c.app_user_id = :appUserId " +
             "AND c.quantity >= 1",nativeQuery = true)
     void reduceQuantity(Long appUserId, Long idProduct);
+
+    @Query(value = "SELECT " +
+            "p.id_product AS idProduct, " +
+            "p.name_product AS nameProduct, " +
+            "p.code_product AS codeProduct, " +
+            "p.quantity AS quantity, " +
+            "t.name_type AS nameType, " +
+            "GROUP_CONCAT(i.image_path) AS imagePath " +
+            "FROM product p " +
+            "JOIN type_product t ON p.id_type = t.id_type " +
+            "LEFT JOIN image i ON p.id_product = i.id_product " +
+            "WHERE p.id_product = :idProduct " +
+            "GROUP BY p.id_product",nativeQuery = true)
+    ProductProjection getProduct(@Param("idProduct") Long idProduct);
 }

@@ -1,9 +1,9 @@
 import './App.css';
 import Login from "./component/user/Login";
-import Cart from "./component/Cart";
+import Cart from "./component/order/Cart";
 import Register from "./component/user/Register";
 import {Route, Routes} from "react-router-dom";
-import DetailProduct from "./component/DetailProduct";
+import DetailProduct from "./component/order/DetailProduct";
 import Authentication from "./component/user/Authentication";
 import {EnumAppUserRole} from "./component/user/EnumAppUserRoles";
 import AuthorOfCustomer from "./component/user/AuthorOfCustomer";
