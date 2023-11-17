@@ -7,28 +7,30 @@ import * as cartService from "../../service/cart/CartDetail";
 import {Paypal} from "../Paypal";
 import Swal from "sweetalert2";
 import {TiDelete} from "react-icons/ti";
-import {checkQuantity, createCartDetail} from "../../service/cart/CartDetail";
-
+import {checkQuantity} from "../../service/cart/CartDetail";
+const currency = (number) => {
+    const roundedNumber = Math.floor(number);
+    const formattedNumber = roundedNumber.toLocaleString("vi", {
+        style: "currency",
+        currency: "VND",
+    });
+    return formattedNumber;
+};
 function Cart() {
-    const [isUpdated, setIsUpdated] = useState(false);
     const [checkout, setCheckout] = useState(false);
     const [cartDetail, setCartDetail] = useState([]);
+
     const getCartDetail = async () => {
         const result = infoAppUserByJwtToken();
         if (result != null) {
             const response = await cartService.getListCartDetail(result.sub);
+            console.log(response.data);
             setCartDetail(response.data);
         }
     }
-
-    // const handleIncrease = async (c) => {
-    //     let quantity = document.getElementById("input-quantity" + c.idProduct)
-    //     quantity.value = parseInt(quantity.value) + 1;
-    //     const result = infoAppUserByJwtToken();
-    //     await cartService.increase(result.sub, c.idProduct);
-    //     getCartDetail();
-    // }
-
+    const total = cartDetail.reduce((acc, item) => {
+        return acc + (item.price * item.quantity);
+    }, 0);
     const handleIncrease = async (idProduct, proQuantity) => {
         let quantity = document.getElementById("input-quantity" + idProduct);
         let quantityInStock = proQuantity;
@@ -91,7 +93,7 @@ function Cart() {
         try {
             Swal.fire({
                 title: "Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?",
-                text: c.name,
+                text: c.nameProduct,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -102,7 +104,7 @@ function Cart() {
                 .then(async (confirm) => {
                     if (confirm.isConfirmed) {
                         const res = infoAppUserByJwtToken();
-                        await deleteCart(res.sub, c.id)
+                        await cartService.deleteCartDetail(res.sub, c.idProduct)
                         Swal.fire("Xóa sản phẩm thành công!", "", "success");
                         getCartDetail();
                     }
@@ -114,8 +116,7 @@ function Cart() {
 
     useEffect(() => {
         getCartDetail();
-
-    }, []);
+    }, [cartDetail.length]);
 
     return (<>
         <Header/>
@@ -163,7 +164,7 @@ function Cart() {
                                                             />
                                                             <button
                                                                 onClick={() => handleIncrease(c.idProduct,
-                                                                c.quantity)}
+                                                                    c.quantity)}
                                                                 className="plus"
                                                             />
                                                             <span onClick={() => deleteCart(c)} className={"ms-5 mb-2"}><TiDelete/></span>
@@ -183,11 +184,11 @@ function Cart() {
                                             style={{backgroundColor: "#e1f5fe"}}
                                         >
                                             <h5 className="fw-bold mb-0">Tổng tiền:</h5>
-                                            <h5 className="fw-bold mb-0">5.400.000vnđ</h5>
+                                            <h5 className="fw-bold mb-0">{currency(total)}</h5>
                                         </div>
                                     </div>
                                     <div>
-                                        {checkout ? (<Paypal/>) : (
+                                        {checkout ? (<Paypal propData1={total} proData2={cartDetail} />) : (
                                             <button onClick={() => setCheckout(true)} type="button"
                                                     className={"btn btn-outline-primary"}>Thanh toán</button>)}
                                     </div>

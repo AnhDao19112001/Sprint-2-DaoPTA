@@ -10,8 +10,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
-    @Column(columnDefinition = "datetime")
-    private LocalDateTime dateTime;
+    private String dateTime;
     private Boolean flagDeleted;
 
     @ManyToOne
@@ -21,14 +20,14 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(Long id, String code, LocalDateTime dateTime, Boolean flagDeleted) {
+    public Orders(Long id, String code, String dateTime, Boolean flagDeleted) {
         this.id = id;
         this.code = code;
         this.dateTime = dateTime;
         this.flagDeleted = flagDeleted;
     }
 
-    public Orders(Long id, String code, LocalDateTime dateTime, Boolean flagDeleted, AppUser appUser) {
+    public Orders(Long id, String code, String dateTime, Boolean flagDeleted, AppUser appUser) {
         this.id = id;
         this.code = code;
         this.dateTime = dateTime;
@@ -60,11 +59,11 @@ public class Orders {
         this.code = code;
     }
 
-    public LocalDateTime getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 

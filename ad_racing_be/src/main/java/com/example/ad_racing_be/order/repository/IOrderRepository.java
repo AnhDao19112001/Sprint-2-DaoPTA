@@ -15,8 +15,8 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     @Transactional
     @Modifying
     @Query(value = "insert into orders(date_time,flag_deleted,app_user_id) " +
-            "values (:dateNow,false, :appUserId)",nativeQuery = true)
-    void createOrders(String dateNow,Long appUserId);
+            "values (:dateTime , false , :appUserId)",nativeQuery = true)
+    void createOrders(String dateTime, Long appUserId);
 
     @Transactional
     @Modifying
@@ -26,6 +26,7 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
                           @Param("idOrder") Long idOrder,
                           @Param("idProduct") Long idProduct);
 
+    // idOrder từ create lấy từ getIdMaxOrder
     @Query(value = "SELECT max(id) FROM orders",nativeQuery = true)
     Long getIdMaxOrder();
 
