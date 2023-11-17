@@ -1,35 +1,37 @@
 package com.example.ad_racing_be.order.dto;
 
 public class CartDetailDto {
-    private Long id;
-    private String name;
+    private Long idProduct;
+    private String nameProduct;
     private Float price;
-    private String image;
+    private String imagePath;
+    private Integer quantity;
 
     public CartDetailDto() {
     }
 
-    public CartDetailDto(Long id, String name, Float price, String image) {
-        this.id = id;
-        this.name = name;
+    public CartDetailDto(Long idProduct, String nameProduct, Float price, String imagePath, Integer quantity) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
         this.price = price;
-        this.image = image;
+        this.imagePath = imagePath;
+        this.quantity = quantity;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdProduct() {
+        return idProduct;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public String getName() {
-        return name;
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
     public Float getPrice() {
@@ -40,11 +42,19 @@ public class CartDetailDto {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

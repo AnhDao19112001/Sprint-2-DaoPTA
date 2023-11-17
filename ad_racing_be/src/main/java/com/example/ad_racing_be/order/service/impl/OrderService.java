@@ -33,8 +33,8 @@ public class OrderService implements IOrderService {
         orderRepository.createOrders(formattedDate,appUser.getId());
         Long isOrders = orderRepository.getIdMaxOrder();
         for (CartDetailDto o: oderDetailDto.getCartDetailDtoList()) {
-            cartDetailRepository.deletedCart(o.getId(), appUser.getId());
-            orderRepository.createOderDetail(o.getPrice(),isOrders,o.getId());
+            cartDetailRepository.deletedCart(o.getIdProduct(), appUser.getId());
+            orderRepository.createOderDetail(o.getPrice(),isOrders,o.getQuantity(),o.getIdProduct());
         }
     }
 

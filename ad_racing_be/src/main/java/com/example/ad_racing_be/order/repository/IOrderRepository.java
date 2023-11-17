@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public interface IOrderRepository extends JpaRepository<Orders, Long> {
 
     @Transactional
@@ -21,12 +23,12 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO order_detail(flag_deleted,current_price,quantity,id_order,id_product) " +
-            "VALUES (false,:currentPrice,:quantity,:idOrder,:idProduct)",nativeQuery = true)
-    void createOderDetail(@Param("currentPrice") Float currentPrice,
+            "VALUES (false,:price,:quantity,:idOrder,:idProduct)",nativeQuery = true)
+    void createOderDetail(@Param("price") Float price,
                           @Param("idOrder") Long idOrder,
+                          @Param("quantity") Integer quantity,
                           @Param("idProduct") Long idProduct);
 
-    // idOrder từ create lấy từ getIdMaxOrder
     @Query(value = "SELECT max(id) FROM orders",nativeQuery = true)
     Long getIdMaxOrder();
 
