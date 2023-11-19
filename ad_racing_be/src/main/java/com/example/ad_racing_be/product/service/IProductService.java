@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface IProductService {
     Page<IProductDto> findAllProduct(Pageable pageable, String search);
+    Product findByIdProduct(Long idProduct);
     List<Product> getAll();
     Page<IProductDto> searchByCode(Pageable pageable, String codeProduct);
     Page<IProductDto> searchByName(Pageable pageable, String nameProduct);

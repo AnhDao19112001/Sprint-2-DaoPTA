@@ -1,7 +1,49 @@
 import "../../css/DetailProduct.css"
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import {useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {getIdProduct} from "../../service/product/ProductService";
+import Swal from "sweetalert2";
+import {getIdByUserName, infoAppUserByJwtToken} from "../../service/user/UserService";
 function DetailProduct() {
+    const navigate = useNavigate();
+    const [product, setProduct] = useState({});
+    const [images, setImages] = useState([]);
+    const [userId,setUserId] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [appUserId, setAppUserId] = useState(null);
+    const {idProduct} = useParams();
+
+    const getProductDetail = async () => {
+        try {
+            const result = await getIdProduct(idProduct);
+            setProduct(result.data);
+            const res = result.data.imagePath.split(",");
+            setImages(res);
+        } catch (error){
+            console.log(error);
+            if (error.response && error.response.status === 406){
+                Swal.fire("Không tìm thấy sản phẩm cần tìm!","","warning");
+                navigate(`/home`);
+            }
+        }
+    };
+
+    const addToCart = async (idProduct) => {
+        const isLogged = infoAppUserByJwtToken();
+        if (isLogged != null) {
+            Swal.fire("Vui lòng đăng nhập!","","warning");
+            localStorage.setItem("tempURL",window.location.pathname);
+            navigate(`/login`);
+        } else {
+            const id = await getIdByUserName(isLogged.sub);
+            setAppUserId(id.data);
+            const quantity = document.getElementById("quantity-value").value;
+            const quantityInCart = await
+        }
+    }
+
     return (
         <>
             <Header/>

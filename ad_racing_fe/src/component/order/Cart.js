@@ -4,7 +4,7 @@ import Footer from "../layout/Footer";
 import {useEffect, useState} from "react";
 import {infoAppUserByJwtToken} from "../../service/user/UserService";
 import * as cartService from "../../service/cart/CartDetail";
-import {Paypal} from "../Paypal";
+import {Paypal} from "./Paypal";
 import Swal from "sweetalert2";
 import {TiDelete} from "react-icons/ti";
 import {checkQuantity} from "../../service/cart/CartDetail";

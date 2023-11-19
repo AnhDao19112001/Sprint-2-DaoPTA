@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
+import {useSelector} from "react-redux";
 
 const Header = ({ inputSearch, onInputChange }) => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Header = ({ inputSearch, onInputChange }) => {
     const [nameProduct, setNameProduct] = useState("");
     const [userId, setUserId] = useState("");
     const [nameType, setNameType] = useState([]);
-
+    const carts = useSelector((state) => state.cartReducer);
     const roleAdmin = userService.checkRollAppUser("ROLE_ADMIN");
     const roleCustomer = userService.checkRollAppUser("ROLE_CUSTOMER");
 
@@ -145,11 +146,13 @@ const Header = ({ inputSearch, onInputChange }) => {
                                 <CiSearch/>
                             </button>
                         </form>
-                        <NavLink to={`/cart`} style={{position: "relative", marginRight: "2%", color: "black"}}>
 
-                            <AiOutlineShoppingCart size="2em"/><span style={{position: "absolute"}}>4</span>
+                        {userName && (
+                                <Link to={`/cart`} href="" className="header-btn header-cart" style={{marginRight:20}}>
+                                        <AiOutlineShoppingCart size="2em"/><span className="cart-number">{carts.length}</span>
+                                </Link>
+                            )}
 
-                        </NavLink>
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 {!userName ? (

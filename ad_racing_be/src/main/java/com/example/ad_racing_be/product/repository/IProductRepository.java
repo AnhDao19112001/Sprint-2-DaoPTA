@@ -28,6 +28,14 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "UPDATE product p set p.flag_deleted = true WHERE p.id_product = :idProduct",nativeQuery = true)
     int deleteProductById(@Param("idProduct") Long idProduct);
 
+    @Query(value = "SELECT p.id_product, p.name_product, p.price, p.description, p.code_product, " +
+            "p.quantity, p.flag_deleted, t.id_type " +
+            "FROM product p " +
+            "JOIN type_product t ON p.id_type = t.id_type " +
+            "WHERE p.id_product = :idProduct " +
+            "AND p.flag_deleted = false" ,nativeQuery = true)
+    Product findByIdProduct(@Param("idProduct") Long idProduct);
+
     @Query(value = PREFIX_SEARCH_NOT_PRICE +
             " WHERE p.flag_deleted = false " +
             "GROUP BY " +

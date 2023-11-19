@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import Swal from "sweetalert2";
 import {useNavigate} from "react-router-dom";
-import {infoAppUserByJwtToken} from "../service/user/UserService";
-import {addToOrders} from "../service/cart/Orders";
+import {infoAppUserByJwtToken} from "../../service/user/UserService";
+import {addToOrders} from "../../service/cart/Orders";
 
 export function Paypal(prop) {
     const paypal = useRef();

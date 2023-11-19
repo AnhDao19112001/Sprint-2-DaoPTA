@@ -1,6 +1,6 @@
 const initState = [];
 
-const CartReducer = (carts = initState,action) => {
+const cartReducer = (carts = initState,action) => {
     const {type, payload} = action;
     switch (type){
         case "GET_ALL_CART":
@@ -9,4 +9,4 @@ const CartReducer = (carts = initState,action) => {
             return carts
     }
 };
-export default CartReducer;
+export default cartReducer;

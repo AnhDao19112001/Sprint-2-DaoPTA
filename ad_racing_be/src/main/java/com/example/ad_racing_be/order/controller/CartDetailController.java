@@ -64,4 +64,16 @@ public class CartDetailController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
+    @GetMapping("/get-detail")
+    public ResponseEntity<?> getProductDisplay(@RequestParam("idProduct") String idProduct){
+        try {
+            Long id = Long.parseLong(idProduct);
+            if (productService.existsByIdAndFlagDeletedIsFalse(id)){
+                return new ResponseEntity<>(cartDetailService.getProductToCheck(id),HttpStatus.OK);
+            }
+        } catch (NumberFormatException e){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+    }
 }

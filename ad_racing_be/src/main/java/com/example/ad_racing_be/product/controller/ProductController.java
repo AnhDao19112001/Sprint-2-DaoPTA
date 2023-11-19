@@ -62,4 +62,10 @@ public class ProductController {
         }
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
+
+    @GetMapping("/{idProduct}")
+    @ResponseBody
+    public ResponseEntity findByIdProduct(@PathVariable("idProduct") Long idProduct){
+        return new ResponseEntity<>(productService.findByIdProduct(idProduct),HttpStatus.OK);
+    }
 }
