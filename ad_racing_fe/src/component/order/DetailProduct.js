@@ -40,7 +40,7 @@ function DetailProduct() {
             const id = await getIdByUserName(isLogged.sub);
             setAppUserId(id.data);
             const quantity = document.getElementById("quantity-value").value;
-            const quantityInCart = await
+            // const quantityInCart = await
         }
     }
 
