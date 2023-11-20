@@ -64,6 +64,8 @@ public interface ICartDetailRepository extends JpaRepository<CartDetail, Long> {
             "p.id_product AS idProduct, " +
             "p.name_product AS nameProduct, " +
             "p.code_product AS codeProduct, " +
+            "p.price AS price, " +
+            "p.description AS description, " +
             "p.quantity AS quantity, " +
             "t.name_type AS nameType, " +
             "GROUP_CONCAT(i.image_path) AS imagePath " +

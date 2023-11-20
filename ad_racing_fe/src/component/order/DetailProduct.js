@@ -36,13 +36,13 @@ function DetailProduct() {
 
     const addToCarts = async (idProduct) => {
         const isLogged = infoAppUserByJwtToken();
-        if (isLogged != null) {
+        if (!isLogged) {
             Swal.fire("Vui lòng đăng nhập!", "", "warning");
             localStorage.setItem("tempURL", window.location.pathname);
             navigate(`/login`);
         } else {
             const id = await getIdByUserName(isLogged.sub);
-            setAppUserId(id.data);
+            setAppUserId(id.sub);
             const quantity = document.getElementById("quantity-value").value;
             if (parseInt(quantity) <= 0) {
                 Swal.fire("Vui lòng thêm ít nhất 1 sản phẩm!", "", "warning")
@@ -52,9 +52,8 @@ function DetailProduct() {
                         idProduct,
                         parseInt(quantity));
                     console.log(result);
-                    const res = await createCartDetail(quantity,id.data, idProduct);
-                    console.log(res);
-                    dispatch(getAllCarts(id.data));
+                    const res = await createCartDetail(1,id.sub, idProduct);
+                    dispatch(getAllCarts(id.sub));
                     Swal.fire("Thêm mới sản phẩm thành công!", "", "success");
                 } catch {
                     Swal.fire("Sản phẩm vượt quá số lượng cho phép!", "", "warning");
@@ -91,11 +90,12 @@ function DetailProduct() {
     }, []);
 
     return (
+        product &&
         <>
             <Header/>
             <div className="container mt-5 mb-5">
                 <div className="row d-flex justify-content-center">
-                    {product.id && (
+                    {
                         <div className="col-md-10">
                             <div className="card">
                                 <div className="row">
@@ -175,25 +175,35 @@ function DetailProduct() {
                                                     {" "}
                                                     <span className="act-price">{currency(product.price)} VNĐ</span>
                                                 </div>
+                                                <p className="about">
+                                                    <span>{product.description}</span>
+                                                </p>
                                             </div>
-                                            <p className="about">
-                                                {product.description}
-                                            </p>
-
                                             <div className="cart mt-4 align-items-center">
                                                 {" "}
                                                 <button
                                                     onClick={() => handleMinus()}
                                                     className="minus"
+                                                >-</button>
+                                                <input
+                                                    id="quantity-value"
+                                                    className="quantity fw-bold text-black"
+                                                    min="1"
+                                                    max="20"
+                                                    name="quantity"
+                                                    style={{textAlign:"center"}}
+                                                    defaultValue={1}
+                                                    type="number"
                                                 />
-                                                <button className="btn btn-danger text-uppercase mr-2 px-4"
-                                                        onClick={() => addToCarts(product.id)}>
-                                                    Thêm vào giỏ hàng.
-                                                </button>
                                                 <button
                                                     onClick={() => handlePlus()}
-                                                    className="minus"
-                                                />
+                                                    className="plus"
+                                                >+</button>
+                                                <br/>
+                                                <button className="btn btn-danger text-uppercase mr-2 px-4 mt-4"
+                                                        onClick={() => addToCarts(product.idProduct)}>
+                                                    Thêm vào giỏ hàng.
+                                                </button>
                                                 {" "}
                                                 <i className="fa fa-heart text-muted"/>{" "}
                                                 <i className="fa fa-share-alt text-muted"/>{" "}
@@ -203,7 +213,7 @@ function DetailProduct() {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    }
                 </div>
             </div>
             <Footer/>
