@@ -24,7 +24,6 @@ function Cart() {
         const result = infoAppUserByJwtToken();
         if (result != null) {
             const response = await cartService.getListCartDetail(result.sub);
-            console.log(response.data);
             setCartDetail(response.data);
         }
     }

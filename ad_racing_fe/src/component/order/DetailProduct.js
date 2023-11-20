@@ -36,13 +36,13 @@ function DetailProduct() {
 
     const addToCarts = async (idProduct) => {
         const isLogged = infoAppUserByJwtToken();
-        if (!isLogged) {
+        if (isLogged == null) {
             Swal.fire("Vui lòng đăng nhập!", "", "warning");
             localStorage.setItem("tempURL", window.location.pathname);
             navigate(`/login`);
         } else {
-            const id = await getIdByUserName(isLogged.sub);
-            setAppUserId(id.sub);
+            const user = await getIdByUserName(isLogged.sub);
+            setAppUserId(user.sub);
             const quantity = document.getElementById("quantity-value").value;
             if (parseInt(quantity) <= 0) {
                 Swal.fire("Vui lòng thêm ít nhất 1 sản phẩm!", "", "warning")
@@ -52,8 +52,8 @@ function DetailProduct() {
                         idProduct,
                         parseInt(quantity));
                     console.log(result);
-                    const res = await createCartDetail(1,id.sub, idProduct);
-                    dispatch(getAllCarts(id.sub));
+                    const res = await createCartDetail(quantity,isLogged.sub, idProduct);
+                    dispatch(getAllCarts(user.sub));
                     Swal.fire("Thêm mới sản phẩm thành công!", "", "success");
                 } catch {
                     Swal.fire("Sản phẩm vượt quá số lượng cho phép!", "", "warning");
