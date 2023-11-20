@@ -4,8 +4,9 @@ export const getAllCarts = (userName) => async (dispatch) => {
         const result = await getListCartDetail(userName);
         dispatch({
             type:"GET_ALL_CART",
-            payload: result,
+            payload: result.data,
         });
+        console.log(result.data)
     } catch (error) {
         console.log(error);
     }

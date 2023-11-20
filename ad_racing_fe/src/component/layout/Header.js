@@ -7,7 +7,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllCarts} from "../order/reduce/cartAction";
 
 const Header = ({ inputSearch, onInputChange }) => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Header = ({ inputSearch, onInputChange }) => {
     const carts = useSelector((state) => state.cartReducer);
     const roleAdmin = userService.checkRollAppUser("ROLE_ADMIN");
     const roleCustomer = userService.checkRollAppUser("ROLE_CUSTOMER");
+    const dispatch = useDispatch();
 
     const getUserName = async () => {
         const result = await userService.infoAppUserByJwtToken();
@@ -29,6 +31,8 @@ const Header = ({ inputSearch, onInputChange }) => {
         if (isLoggedIn) {
             const id = await userService.getIdByUserName(isLoggedIn.sub);
             setUserId(id.data);
+            dispatch(getAllCarts(isLoggedIn.sub));
+
         }
     }
     const getTypeProduct = async () => {

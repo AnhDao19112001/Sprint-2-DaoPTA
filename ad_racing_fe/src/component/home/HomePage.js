@@ -23,6 +23,7 @@ import {toast} from "react-toastify";
 
 function HomePage() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [productList, setProductList] = useState([]);
     const [favoriteList, setFavoriteList] = useState([]);
     const [ProductListWithKind, setProductListWithKind] = useState([]);
@@ -37,6 +38,7 @@ function HomePage() {
                 title:"Thêm sản phẩm thành công!",
                 icon:"success",
             })
+            dispatch(getAllCarts(result.sub));
         } else {
             Swal.fire({
                 title:"Vui lòng đăng nhập!!",
