@@ -13,7 +13,7 @@ export function Paypal(prop) {
             .Buttons({
                 createOrder: (data, actions, err) => {
                     const price =  parseFloat(prop.propData1);
-                    const priceUsd = parseInt(price / 25000);
+                    const priceUsd = parseInt(price / 23000);
                     return actions.order.create({
                         intent: "CAPTURE",
                         purchase_units: [
