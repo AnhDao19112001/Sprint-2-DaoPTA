@@ -3,6 +3,7 @@ package com.example.ad_racing_be.order.service.impl;
 import com.example.ad_racing_be.order.dto.CartDetailDto;
 import com.example.ad_racing_be.order.dto.IOderDto;
 import com.example.ad_racing_be.order.dto.OderDetailDto;
+import com.example.ad_racing_be.order.model.Orders;
 import com.example.ad_racing_be.order.repository.ICartDetailRepository;
 import com.example.ad_racing_be.order.repository.IOrderRepository;
 import com.example.ad_racing_be.order.service.IOrderService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class OrderService implements IOrderService {
@@ -49,5 +51,11 @@ public class OrderService implements IOrderService {
         AppUser appUser = appUserRepository.findAppUserByName(userName);
         Page<IOderDto> oderDtos = orderRepository.getOrderDto(appUser.getId(), pageable);
         return oderDtos;
+    }
+
+    @Override
+    public List<Orders> getAllOrders(String userName) {
+        AppUser appUser = appUserRepository.findAppUserByName(userName);
+        return orderRepository.listOrders(appUser.getId());
     }
 }

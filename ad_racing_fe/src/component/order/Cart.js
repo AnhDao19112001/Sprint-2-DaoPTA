@@ -159,7 +159,7 @@ function Cart() {
                                                                 max="20"
                                                                 name="quantity"
                                                                 defaultValue={c.quantity}
-                                                                type="number"
+                                                                type="number" disabled
                                                             />
                                                             <button
                                                                 onClick={() => handleIncrease(c.idProduct,

@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
 public interface IOrderRepository extends JpaRepository<Orders, Long> {
 
@@ -44,4 +45,11 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "WHERE o.app_user_id = :id " +
             "GROUP BY o.date_time",nativeQuery = true)
     Page<IOderDto> getOrderDto(Long id, Pageable pageable);
+
+    @Query(value = "SELECT o.* " +
+            "FROM orders as o " +
+            "JOIN app_user a ON a.id = o.app_user_id " +
+            "WHERE o.app_user_id = :appUserId AND o.flag_deleted = false " +
+            "ORDER BY o.date_time asc ",nativeQuery = true)
+    List<Orders> listOrders(@Param("appUserId") Long appUserId);
 }
