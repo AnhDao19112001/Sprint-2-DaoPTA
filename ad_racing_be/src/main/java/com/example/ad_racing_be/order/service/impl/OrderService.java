@@ -2,6 +2,7 @@ package com.example.ad_racing_be.order.service.impl;
 
 import com.example.ad_racing_be.order.dto.CartDetailDto;
 import com.example.ad_racing_be.order.dto.IOderDto;
+import com.example.ad_racing_be.order.dto.IOrderProjection;
 import com.example.ad_racing_be.order.dto.OderDetailDto;
 import com.example.ad_racing_be.order.model.Orders;
 import com.example.ad_racing_be.order.repository.ICartDetailRepository;
@@ -58,4 +59,15 @@ public class OrderService implements IOrderService {
         AppUser appUser = appUserRepository.findAppUserByName(userName);
         return orderRepository.listOrders(appUser.getId());
     }
+
+    @Override
+    public Page<IOrderProjection> getAllListOrder(Pageable pageable) {
+        return orderRepository.getAllListOrder(pageable);
+    }
+
+    @Override
+    public Page<IOrderProjection> findByDateTimeRange(Pageable pageable, LocalDate startDateTime, LocalDate endDateTime) {
+        return orderRepository.findByDateTimeRange(pageable, startDateTime, endDateTime);
+    }
+
 }

@@ -1,17 +1,22 @@
 package com.example.ad_racing_be.order.controller;
 
 import com.example.ad_racing_be.order.dto.IOderDto;
+import com.example.ad_racing_be.order.dto.IOrderProjection;
 import com.example.ad_racing_be.order.dto.OderDetailDto;
+import com.example.ad_racing_be.order.dto.SortOrders;
 import com.example.ad_racing_be.order.model.Orders;
 import com.example.ad_racing_be.order.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -40,5 +45,23 @@ public class OrderController {
     public ResponseEntity<List<Orders>> getAllOrder(@RequestParam String userName){
         List<Orders> ordersList = orderService.getAllOrders(userName);
         return new ResponseEntity<>(ordersList,HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/list"})
+    public ResponseEntity<?> getListOrders(@RequestParam(required = false, defaultValue = "0") int page,
+                                           @RequestParam(required = false,defaultValue = "") String sortBy,
+                                           @RequestParam(required = false, defaultValue = "") String startDateTime,
+                                           @RequestParam(required = false,defaultValue = "") String endDateTime){
+        Pageable pageable = SortOrders.sortBy(sortBy,page);
+        if (!startDateTime.equals("")||!endDateTime.equals("")){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localStartDate = LocalDate.parse(startDateTime, formatter);
+            LocalDate localEndDate = LocalDate.parse(endDateTime, formatter);
+            Page<IOrderProjection> orderProjections = orderService.findByDateTimeRange(pageable,localStartDate, localEndDate);
+            return new ResponseEntity<>(orderProjections, HttpStatus.OK);
+        } else {
+            Page<IOrderProjection> orderProjections = orderService.getAllListOrder(pageable);
+            return new ResponseEntity<>(orderProjections, HttpStatus.OK);
+        }
     }
 }
