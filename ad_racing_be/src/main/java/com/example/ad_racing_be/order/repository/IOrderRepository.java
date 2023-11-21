@@ -63,7 +63,7 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "            WHEN app.id IS NULL THEN\n" +
             "            sum(od.current_price * od.quantity)\n" +
             "            WHEN app.id IS NOT NULL THEN\n" +
-            "            sum(od.current_price * od.quantity)/2 END AS getOrderDetailPrice\n" +
+            "            sum(od.current_price * od.quantity) END AS orderDetailPrice\n" +
             "             FROM\n" +
             "             orders o\n" +
             "            LEFT JOIN app_user app on app.id = o.app_user_id\n" +
@@ -81,7 +81,7 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "            WHEN app.id IS NULL THEN\n" +
             "            sum(od.current_price * od.quantity)\n" +
             "            WHEN app.id IS NOT NULL THEN\n" +
-            "            sum(od.current_price * od.quantity)/2 END AS getOrderDetailPrice\n" +
+            "            sum(od.current_price * od.quantity) END AS orderDetailPrice\n" +
             "             FROM\n" +
             "             orders o\n" +
             "            LEFT JOIN app_user app on app.id = o.app_user_id\n" +

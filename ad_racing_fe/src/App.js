@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import HavingNoResult from "./component/search/HavingNoResult";
 import ProductWithKind from "./component/layout/ProductWithKind";
 import SearchPage from "./component/search/SearchPage";
+import ListOrder from "./component/order/ListOrder";
 function App() {
     return (
         <Routes>
@@ -26,6 +27,7 @@ function App() {
             <Route path={`/home/search/:nameProduct`} element={<SearchPage />} />
             <Route path={"/home/search/"} element={<SearchPage />} />
             <Route path={`/home/list-product/:nameType`} element={<ProductWithKind />} />
+            <Route path={`/home/list-order`} element={<ListOrder />} />
             <Route element={
                 <Authentication
                     allowedRoles={[
