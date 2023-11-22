@@ -202,13 +202,6 @@ function Cart() {
                                             <h5 className="fw-bold mb-0">Tổng tiền:</h5>
                                             <h5 className="fw-bold mb-0">{currency(total)}</h5>
                                         </div>
-                                        <div
-                                            className="d-flex justify-content-between mb-2"
-                                        >
-                                            {checkout ? (<Paypal propData1={total} proData2={cartDetail}/>) : (
-                                                <button onClick={() => setCheckout(true)} type="button"
-                                                        className={"btn btn-outline-primary"}>Thanh toán</button>)}
-                                        </div>
                                     </div>
                                     <div className="col-lg-6 px-5 py-4">
                                         <h3 className="mb-5 pt-2 text-center fw-bold text-uppercase">
@@ -247,6 +240,11 @@ function Cart() {
                                                 <span><strong>{currency(total)}</strong></span>
                                             </li>
                                         </ul>
+                                        <div>
+                                            {checkout ? (<Paypal propData1={total} proData2={cartDetail}/>) : (
+                                                <button onClick={() => setCheckout(true)} type="button"
+                                                        className={"btn btn-outline-primary float-end"}>Thanh toán</button>)}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
