@@ -6,7 +6,6 @@ import {Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineRollback} from "react-icons/ai";
 import {Link} from "react-router-dom";
-import {FaPlus} from "react-icons/fa";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 

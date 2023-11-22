@@ -118,7 +118,7 @@ function Cart() {
     }, [cartDetail.length]);
 
     return (<>
-        <Header/>
+        <Header onInputChange={() => {}}/>
         <section className="h-custom" style={{backgroundColor: "#eee", paddingBottom: "70%"}}>
             <div className="container h-100 py-5">
                 <div className="row d-flex justify-content-center align-items-center h-100">
