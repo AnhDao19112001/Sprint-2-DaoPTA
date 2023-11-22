@@ -51,7 +51,7 @@ const ListOrder = () => {
     return (
         <>
             <div>
-                <h1 className="title-employee">Quản lý bán hàng</h1>
+                <h1 className="title-employee text-center">Lịch sử bán hàng</h1>
             </div>
 
             <div className="mx-auto container ">
@@ -110,8 +110,8 @@ const ListOrder = () => {
                             <table className="table table-hover ">
                                 <thead>
                                 <tr className="th-list">
-                                    <th className="px-3 py-2 bg-primary " style={{width: "130px"}}>Mã hoá đơn
-                                    </th>
+                                    {/*<th className="px-3 py-2 bg-primary " style={{width: "130px"}}>Mã hoá đơn*/}
+                                    {/*</th>*/}
                                     <th className="px-3 py-2 bg-primary " style={{width: "260px"}}>Tên khách hàng
                                     </th>
                                     <th className="px-3 py-2 bg-primary " style={{width: "130px"}}>Ngày lập
@@ -124,7 +124,7 @@ const ListOrder = () => {
                                 {invoices.length !== 0 ?
                                     invoices.map((invoice, index) => (
                                             <tr>
-                                                <td className={`px-3 py-3 `}>{invoice.code}</td>
+                                                {/*<td className={`px-3 py-3 `}>{invoice.code}</td>*/}
                                                 <td className={`px-3 py-3 `}>{invoice.fullName}</td>
                                                 <td className={`px-3 py-3 `}>{invoice.orderDate}</td>
                                                 <td className={`px-3 py-3 `}>{new Intl.NumberFormat("vi-VN").format(
@@ -178,11 +178,6 @@ const ListOrder = () => {
                     </div>
                 </div>
                 <div className="button-list-employee justify-content-end d-flex">
-                    <Link to="/dashboard/retail">
-                        <button className="btn btn-light btn-outline-primary m-1">
-                            <FaPlus className="mx-1"/> Thêm mới
-                        </button>
-                    </Link>
                     <Link to="/home">
                         <button className="btn btn-outline-primary m-1">
                             <AiOutlineRollback/>

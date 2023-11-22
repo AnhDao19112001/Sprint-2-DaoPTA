@@ -81,4 +81,13 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
     @Query(value =  " CALL insert_acc ( :pass, :userName, :roleId)" ,nativeQuery = true)
     void findAppRoleIdByName(@Param("pass") String pass, @Param("userName") String userName,
                              @Param("roleId") Long roleId);
+
+    @Modifying
+    @Transactional
+    @Query(value =  " CALL insert_acc_use ( :pass, :userName, :roleId, :address, :email, :fullName, " +
+            ":image, :phone)" ,nativeQuery = true)
+    void findAppRoleIdByNameUser(@Param("pass") String pass, @Param("userName") String userName,
+                             @Param("roleId") Long roleId, @Param("address") String address,
+                                 @Param("email") String email, @Param("fullName") String fullName,
+                                 @Param("image") String image, @Param("phone") String phone);
 }

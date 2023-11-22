@@ -47,7 +47,14 @@ public class AppUserService implements IAppUserService {
 
     @Override
     public void createNewAppUser(AppUser appUser, String role) {
-        appUserRepository.findAppRoleIdByName(appUser.getPass(),appUser.getUserName(),2L);
+        appUserRepository.findAppRoleIdByNameUser(appUser.getPass()
+                ,appUser.getUserName()
+                ,2L
+                ,appUser.getAddress()
+                ,appUser.getEmail()
+                ,appUser.getFullName()
+                ,appUser.getImage()
+                ,appUser.getPhone());
     }
 
     @Override

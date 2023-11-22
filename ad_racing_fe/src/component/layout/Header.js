@@ -175,7 +175,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                                     <>
                                         <Dropdown.Item as={Link} to={`/user-info/${userId}`}>Thông tin</Dropdown.Item>
                                         {(roleAdmin || roleCustomer) && (
-                                            <Dropdown.Item as={Link} to={"/dashboard/retail"}>Chức năng</Dropdown.Item>
+                                            <Dropdown.Item as={Link} to={"/home"}>Chức năng</Dropdown.Item>
                                         )}
                                         <Dropdown.Item onClick={() => {
                                             handleLogout();
