@@ -2,6 +2,7 @@ package com.example.ad_racing_be.order.repository;
 
 import com.example.ad_racing_be.order.dto.IOderDto;
 import com.example.ad_racing_be.order.dto.IOrderProjection;
+import com.example.ad_racing_be.order.dto.OrderDetailProjection;
 import com.example.ad_racing_be.order.model.Orders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -94,4 +95,7 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     Page<IOrderProjection> findByDateTimeRange(Pageable pageable,
                                                @Param("startDateTime") LocalDate startDateTime,
                                                @Param("endDateTime") LocalDate endDateTime);
+
+    @Query(value = "call getCartDetailsForMail( :idOrder)",nativeQuery = true)
+    List<OrderDetailProjection> findCartDetailsByOrderId(@Param("idOrder") Long idOrder);
 }

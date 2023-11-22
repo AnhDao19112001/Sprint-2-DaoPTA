@@ -1,9 +1,6 @@
 package com.example.ad_racing_be.order.service.impl;
 
-import com.example.ad_racing_be.order.dto.CartDetailDto;
-import com.example.ad_racing_be.order.dto.IOderDto;
-import com.example.ad_racing_be.order.dto.IOrderProjection;
-import com.example.ad_racing_be.order.dto.OderDetailDto;
+import com.example.ad_racing_be.order.dto.*;
 import com.example.ad_racing_be.order.model.Orders;
 import com.example.ad_racing_be.order.repository.ICartDetailRepository;
 import com.example.ad_racing_be.order.repository.IOrderRepository;
@@ -68,6 +65,11 @@ public class OrderService implements IOrderService {
     @Override
     public Page<IOrderProjection> findByDateTimeRange(Pageable pageable, LocalDate startDateTime, LocalDate endDateTime) {
         return orderRepository.findByDateTimeRange(pageable, startDateTime, endDateTime);
+    }
+
+    @Override
+    public List<OrderDetailProjection> findCartDetailsForMail(Long idOrder) {
+        return orderRepository.findCartDetailsByOrderId(idOrder);
     }
 
 }

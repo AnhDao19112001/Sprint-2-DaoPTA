@@ -9,3 +9,7 @@ export const listOrder = async (page, orderDto,sortBy) => {
     &sortBy=${sortBy}&startDateTime=${orderDto.startDateTime}&endDateTime=${orderDto.endDateTime}`);
     return result;
 }
+export const getOrderDetails = async (idOrder) => {
+    const result = await axios.get(`http://localhost:8080/api/order/get-order-detail?idOrder=${idOrder}`)
+    return result.data;
+}

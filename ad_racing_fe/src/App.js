@@ -15,6 +15,7 @@ import ProductWithKind from "./component/layout/ProductWithKind";
 import SearchPage from "./component/search/SearchPage";
 import ListOrder from "./component/order/ListOrder";
 import Info from "./component/user/Info";
+import OrderDetail from "./component/order/OrderDetail";
 function App() {
     return (
         <Routes>
@@ -38,6 +39,7 @@ function App() {
                 />
             }>
                 <Route path={`/home/list-order`} element={<ListOrder />} />
+                <Route path={`/order-detail`} element={<OrderDetail />} />
                 <Route path={`/user-info/:userId`} element={<Info />} />
                 <Route element={<AuthorOfCustomer />}>
                     <Route path={`/user-info/:userId`} element={<Info />} />
