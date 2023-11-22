@@ -5,6 +5,9 @@ import Header from "./Header";
 import HavingNoResult from "../search/HavingNoResult";
 import * as utils from "../../service/utils/Utils";
 import Footer from "./Footer";
+import {infoAppUserByJwtToken} from "../../service/user/UserService";
+import {createCartDetail} from "../../service/cart/CartDetail";
+import Swal from "sweetalert2";
 
 const ProductWithKind = () => {
     const params = useParams();
@@ -51,6 +54,24 @@ const ProductWithKind = () => {
             setDisplayType(nameType);
         }
     };
+
+    const addToCartDetail = (a) => {
+        const result = infoAppUserByJwtToken();
+        if (result != null){
+            const res = createCartDetail(1,result.sub,a.idProduct);
+            Swal.fire({
+                title:"Thêm sản phẩm thành công!",
+                icon:"success",
+            })
+        } else {
+            Swal.fire({
+                title:"Vui lòng đăng nhập!",
+                icon:"warning",
+            });
+            navigate(`/login`)
+        }
+    }
+
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
@@ -63,7 +84,8 @@ const ProductWithKind = () => {
     const totalPages = Math.ceil(totalElements / pageSize);
     return (
         <>
-            <Header onInputChange={() => {}}/>
+            <Header onInputChange={() => {
+            }}/>
             <section
                 className="our-menu bg-light repeat-img pb-5" style={{padding: "7rem 0 0"}}>
                 {isNoContent ? (<HavingNoResult/>) : (
@@ -131,7 +153,7 @@ const ProductWithKind = () => {
                                                     </Link>
                                                     <button
                                                         className="card-btn"
-                                                        // onClick={() => addToCart(el.idProduct)}
+                                                        onClick={() => addToCartDetail(el)}
                                                     >
                                                         Mua
                                                     </button>
@@ -171,14 +193,11 @@ const ProductWithKind = () => {
                             <div className="row justify-content-center mt-5">
                                 <nav aria-label="Pagination" style={{width: "100%"}}>
                                     <ul className="pagination d-flex justify-content-center">
-                                        <li
-                                            className={`page-item ${currentPage === 1 && "disabled"}`}
-                                        >
+                                        <li className={`page-item ${currentPage === 1 && "disabled"}`}>
                                             <button
                                                 className="page-link"
                                                 onClick={() => handlePageChange(currentPage - 1)}
-                                                style={{color: "rgb(27, 65, 168)"}}
-                                            >
+                                                style={{color: "rgb(27, 65, 168)"}}>
                                                 &laquo;
                                             </button>
                                         </li>
@@ -186,45 +205,23 @@ const ProductWithKind = () => {
                                         {[...Array(Number.isInteger(totalPages) && totalPages >= 0 ? totalPages : 1).keys()].map((page) => (
                                             <li
                                                 key={page}
-                                                className={`page-item ${currentPage === page + 1 && "active"}`}
-                                            >
+                                                className={`page-item ${currentPage === page + 1 && "active"}`}>
                                                 <button
                                                     className="page-link"
-                                                    style={{ color: "rgb(27, 65, 168)" }}
-                                                    onClick={() => handlePageChange(page + 1)}
-                                                >
+                                                    style={{color: "rgb(27, 65, 168)"}}
+                                                    onClick={() => handlePageChange(page + 1)}>
                                                     {page + 1}
                                                 </button>
                                             </li>
                                         ))}
 
-                                        {/*{[...Array(totalPages).keys()].map((page) => (*/}
-                                        {/*    <li*/}
-                                        {/*        key={page}*/}
-                                        {/*        className={`page-item ${*/}
-                                        {/*            currentPage === page + 1 && "active"*/}
-                                        {/*        }`}*/}
-                                        {/*    >*/}
-                                        {/*        <button*/}
-                                        {/*            className="page-link"*/}
-                                        {/*            style={{color: "rgb(27, 65, 168)"}}*/}
-                                        {/*            onClick={() => handlePageChange(page + 1)}*/}
-                                        {/*        >*/}
-                                        {/*            {page + 1}*/}
-                                        {/*        </button>*/}
-                                        {/*    </li>*/}
-                                        {/*))}*/}
-
                                         <li
                                             className={`page-item ${
-                                                currentPage === totalPages && "disabled"
-                                            }`}
-                                        >
+                                                currentPage === totalPages && "disabled"}`}>
                                             <button
                                                 className="page-link"
                                                 onClick={() => handlePageChange(currentPage + 1)}
-                                                style={{color: "rgb(27, 65, 168)"}}
-                                            >
+                                                style={{color: "rgb(27, 65, 168)"}}>
                                                 &raquo;
                                             </button>
                                         </li>
@@ -233,10 +230,9 @@ const ProductWithKind = () => {
                             </div>
                         </div>
                     </>
-                )
-                }
+                )}
             </section>
-            <Footer />
+            <Footer/>
         </>
     )
 }

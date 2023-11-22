@@ -9,5 +9,5 @@ public interface IAppUserService extends UserDetailsService {
     void createNewAppUser(AppUser appUser, String role);
 
     Boolean logout(String userName);
-    Long findAppUserIdByUserName(String userName);
+    AppUser findAppUserIdByUserName(String userName);
 }

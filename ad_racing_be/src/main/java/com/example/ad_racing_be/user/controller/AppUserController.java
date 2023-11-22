@@ -119,10 +119,10 @@ public class AppUserController {
     }
     @GetMapping("/id-user/{userName}")
     public ResponseEntity<Object> getIdAppUser(@PathVariable String userName){
-        Long id = appUserService.findAppUserIdByUserName(userName);
-        if (id == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        AppUser appUser = appUserService.findAppUserIdByUserName(userName);
+        if (appUser == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không có dữ liệu!");
         }
-        return ResponseEntity.ok().body(id);
+        return ResponseEntity.ok().body(appUser);
     }
 }

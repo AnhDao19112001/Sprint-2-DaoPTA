@@ -67,8 +67,8 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
      * @param userName userName
      * @return Long
      */
-    @Query(value = "SELECT au.id from sprint_2_ad_racing.app_user au WHERE au.user_name = :userName",nativeQuery = true)
-    Long findIdByUserName(@Param("userName") String userName);
+    @Query(value = "SELECT au.* from sprint_2_ad_racing.app_user au WHERE au.user_name = :userName",nativeQuery = true)
+    AppUser findIdByUserName(@Param("userName") String userName);
 
     /**
      * author: DaoPTA

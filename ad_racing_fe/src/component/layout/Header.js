@@ -9,6 +9,7 @@ import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllCarts} from "../order/reduce/cartAction";
+import {BiCog, BiLogOutCircle, BiUserCircle} from "react-icons/bi";
 
 const Header = ({ inputSearch, onInputChange }) => {
     const navigate = useNavigate();
@@ -152,38 +153,61 @@ const Header = ({ inputSearch, onInputChange }) => {
                         </form>
 
                         {userName && (
-                                <Link to={`/cart`} href="" className="header-btn header-cart" style={{marginRight:20}}>
+                                <Link to={`/cart`} href="" className="header-btn header-cart">
                                         <AiOutlineShoppingCart size="2em"/><span className="cart-number">{carts.length}</span>
                                 </Link>
                             )}
 
-                        <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                {!userName ? (
-                                    <Link to="/login">
-                                        <span className="user-info" style={{color: "black"}}>Đăng nhập</span>
-                                    </Link>
-                                ) : (
-                                    <span className="user-info" style={{overflow: "hidden"}}>
-                                {userName.sub}
-                            </span>
-                                )}
-                            </Dropdown.Toggle>
+                        <a href="#" className="user">
+                            <img
+                                src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
+                                alt="user-img"
+                                className="user-img"
+                            />
+                            {!userName ? (
+                                <Link to="/login">
+                                    <span className="user-info">Đăng nhập</span>
+                                </Link>
+                            ) : (
+                                <span className="user-info" style={{ overflow: "hidden" }}>
+                      {userName.sub}
+                    </span>
+                            )}
 
-                            <Dropdown.Menu>
+                            <div className="user-dropdown-list">
                                 {JwtToken ? (
                                     <>
-                                        <Dropdown.Item as={Link} to={`/user-info/${userId}`}>Thông tin</Dropdown.Item>
-                                        {(roleAdmin || roleCustomer) && (
-                                            <Dropdown.Item as={Link} to={"/home/list-order"}>Lịch sử mua hàng</Dropdown.Item>
+                                        <Link
+                                            to={`/user-info/${userId}`}
+                                            className="user-dropdown-item"
+                                        >
+                                            <BiUserCircle className="me-3 ms-0" size={25} />
+                                            <div className="dropdown-text">Thông tin</div>
+                                        </Link>
+                                        {(roleAdmin) && (
+                                            <Link
+                                                to={"/home/list-order"}
+                                                className="user-dropdown-item"
+                                            >
+                                                <BiCog className="me-3 ms-0" size={25} />
+                                                <div className="dropdown-text">Lịch sử bán</div>
+                                            </Link>
                                         )}
-                                        <Dropdown.Item onClick={() => {
-                                            handleLogout();
-                                        }}>Đăng xuất</Dropdown.Item>
+                                        <Link className="user-dropdown-item">
+                                            <BiLogOutCircle className="me-3 ms-0" size={25} />
+                                            <div
+                                                className="dropdown-text"
+                                                onClick={() => {
+                                                    handleLogout();
+                                                }}
+                                            >
+                                                Đăng xuất
+                                            </div>
+                                        </Link>
                                     </>
                                 ) : null}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </nav>

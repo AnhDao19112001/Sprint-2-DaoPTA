@@ -2,12 +2,13 @@ import "../../css/Cart.css"
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import {useEffect, useState} from "react";
-import {infoAppUserByJwtToken} from "../../service/user/UserService";
+import {getIdByUserName, infoAppUserByJwtToken} from "../../service/user/UserService";
 import * as cartService from "../../service/cart/CartDetail";
 import {Paypal} from "./Paypal";
 import Swal from "sweetalert2";
 import {TiDelete} from "react-icons/ti";
 import {checkQuantity} from "../../service/cart/CartDetail";
+
 const currency = (number) => {
     const roundedNumber = Math.floor(number);
     const formattedNumber = roundedNumber.toLocaleString("vi", {
@@ -16,10 +17,21 @@ const currency = (number) => {
     });
     return formattedNumber;
 };
+
 function Cart() {
     const [checkout, setCheckout] = useState(false);
     const [cartDetail, setCartDetail] = useState([]);
+    const [customer, setCustomer] = useState(null);
 
+    const fetchData = async () => {
+        try {
+            const user = await getIdByUserName(infoAppUserByJwtToken(localStorage.getItem('JWT')).sub);
+            setCustomer(user.data);
+            console.log(user.data)
+        } catch (error) {
+            console.error(error);
+        }
+    };
     const getCartDetail = async () => {
         const result = infoAppUserByJwtToken();
         if (result != null) {
@@ -117,8 +129,13 @@ function Cart() {
         getCartDetail();
     }, [cartDetail.length]);
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (<>
-        <Header onInputChange={() => {}}/>
+        <Header onInputChange={() => {
+        }}/>
         <section className="h-custom" style={{backgroundColor: "#eee", paddingBottom: "70%"}}>
             <div className="container h-100 py-5">
                 <div className="row d-flex justify-content-center align-items-center h-100">
@@ -185,11 +202,51 @@ function Cart() {
                                             <h5 className="fw-bold mb-0">Tổng tiền:</h5>
                                             <h5 className="fw-bold mb-0">{currency(total)}</h5>
                                         </div>
+                                        <div
+                                            className="d-flex justify-content-between mb-2"
+                                        >
+                                            {checkout ? (<Paypal propData1={total} proData2={cartDetail}/>) : (
+                                                <button onClick={() => setCheckout(true)} type="button"
+                                                        className={"btn btn-outline-primary"}>Thanh toán</button>)}
+                                        </div>
                                     </div>
-                                    <div>
-                                        {checkout ? (<Paypal propData1={total} proData2={cartDetail} />) : (
-                                            <button onClick={() => setCheckout(true)} type="button"
-                                                    className={"btn btn-outline-primary"}>Thanh toán</button>)}
+                                    <div className="col-lg-6 px-5 py-4">
+                                        <h3 className="mb-5 pt-2 text-center fw-bold text-uppercase">
+                                            Địa chỉ nhận hàng
+                                        </h3>
+                                        <hr/>
+
+                                        <ul className="list-group list-group-flush">
+                                            <li
+                                                className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Tên người nhận:
+                                                <p>{customer.fullName}</p>
+                                            </li>
+                                            <li
+                                                className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Số điện thoại:
+                                                <p>{customer.phone}</p>
+                                            </li>
+                                            <li
+                                                className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Địa chỉ:
+                                                <p>{customer.address}</p>
+                                            </li>
+                                            <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                Phí ship
+                                                <p>Miễn phí</p>
+                                            </li>
+                                            <li
+                                                className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                <div>
+                                                    <strong>Tổng tiền</strong>
+                                                    <strong>
+                                                        <p className="mb-0">(bao gồm VAT)</p>
+                                                    </strong>
+                                                </div>
+                                                <span><strong>{currency(total)}</strong></span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
