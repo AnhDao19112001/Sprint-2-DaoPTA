@@ -85,7 +85,7 @@ const ListOrder = () => {
                                     <label className="mx-2 p-2">Đến ngày</label>
                                     <Field name="endDateTime" type={"date"} className={"form-control"}
                                            style={{width: "240px"}}/>
-                                    <button type="submit" className="btn btn-outline-primary mx-2"><i
+                                    <button type="submit" className="btn btn-outline-dark mx-2"><i
                                         className="fa-solid fa-magnifying-glass"/>Tìm kiếm
                                     </button>
                                 </div>
@@ -112,13 +112,11 @@ const ListOrder = () => {
                             <table className="table table-hover ">
                                 <thead>
                                 <tr className="th-list">
-                                    {/*<th className="px-3 py-2 bg-primary " style={{width: "130px"}}>Mã hoá đơn*/}
-                                    {/*</th>*/}
-                                    <th className="px-3 py-2 bg-primary " style={{width: "260px"}}>Tên khách hàng
+                                    <th className="px-3 py-2" style={{width: "260px"}}>Tên khách hàng
                                     </th>
-                                    <th className="px-3 py-2 bg-primary " style={{width: "130px"}}>Ngày lập
+                                    <th className="px-3 py-2" style={{width: "130px"}}>Ngày lập
                                     </th>
-                                    <th className="px-3 py-2 bg-primary " style={{width: "150px"}}>Tổng tiền (VNĐ)
+                                    <th className="px-3 py-2" style={{width: "150px"}}>Tổng tiền (VNĐ)
                                     </th>
                                 </tr>
                                 </thead>
@@ -126,7 +124,6 @@ const ListOrder = () => {
                                 {invoices.length !== 0 ?
                                     invoices.map((invoice, index) => (
                                             <tr>
-                                                {/*<td className={`px-3 py-3 `}>{invoice.code}</td>*/}
                                                 <td className={`px-3 py-3 `}>{invoice.fullName}</td>
                                                 <td className={`px-3 py-3 `}>{invoice.orderDate}</td>
                                                 <td className={`px-3 py-3 `}>{new Intl.NumberFormat("vi-VN").format(
@@ -144,7 +141,7 @@ const ListOrder = () => {
                             className={`justify-content-center d-flex rounded-bottom shadow ${
                                 totalPage === 0 ? "d-none" : ""
                             }`}>
-                            <button className={`btn btn-primary ${
+                            <button className={`btn btn-outline-dark ${
                                 page === 0 ? "disabled" : ""
                             }`}
                                     style={{margin: "5px"}}
@@ -157,14 +154,14 @@ const ListOrder = () => {
                             </button>
                             <div className="text-sm py-2 px-4"
                                  style={{
-                                     background: "#0d6efd",
-                                     color: "#ffffff",
+                                     background: "white",
+                                     color: "black",
                                      margin: "5px",
                                      borderRadius: "5px"
                                  }}>
                                 {page + 1}/{totalPage}
                             </div>
-                            <button className={`btn btn-primary ${
+                            <button className={`btn btn-outline-dark ${
                                 page === totalPage - 1 ? "disabled" : ""
                             }`}
                                     style={{margin: "5px"}}
@@ -181,7 +178,7 @@ const ListOrder = () => {
                 </div>
                 <div className="button-list-employee justify-content-end d-flex">
                     <Link to="/home">
-                        <button className="btn btn-outline-primary m-1">
+                        <button className="btn btn-outline-dark m-1">
                             <AiOutlineRollback/>
                             Trở về
                         </button>

@@ -106,7 +106,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                                     Trang chủ
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            <li className="nav-item ms-2">
                                 <a className="nav-link" href="src/component#">
                                     Về chúng tôi
                                 </a>
@@ -119,7 +119,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                                     >
                                         Danh mục
                                     </div>
-                                    <div className="category-dropdown-list ">
+                                    <div className="category-dropdown-list float-start">
                                         {nameType?.map((type, index) => (
                                             <Link
                                                 key={index}

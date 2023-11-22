@@ -21,7 +21,7 @@ const currency = (number) => {
 function Cart() {
     const [checkout, setCheckout] = useState(false);
     const [cartDetail, setCartDetail] = useState([]);
-    const [customer, setCustomer] = useState(null);
+    const [customer, setCustomer] = useState({});
 
     const fetchData = async () => {
         try {
