@@ -153,7 +153,7 @@ function Cart() {
                                                     <img
                                                         src={c.imagePath}
                                                         className="img-fluid"
-                                                        style={{width: 150}}
+                                                        style={{width: 150, height:150}}
                                                         alt="Generic placeholder image"
                                                     />
                                                 </div>

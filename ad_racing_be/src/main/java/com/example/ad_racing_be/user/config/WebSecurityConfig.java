@@ -65,8 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 )
 
-                .hasAnyAuthority("ROLE_ADMIN", "ROLE_CUSTOMER")
+                .hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers(
+                        "/api/order/list"
                         //Authen Role admin and customer
 
                 ).hasAnyAuthority("ROLE_ADMIN")

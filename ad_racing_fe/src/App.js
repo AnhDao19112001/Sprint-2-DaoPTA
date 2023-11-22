@@ -28,8 +28,7 @@ function App() {
             <Route path={`/home/search/:nameProduct`} element={<SearchPage />} />
             <Route path={"/home/search/"} element={<SearchPage />} />
             <Route path={`/home/list-product/:nameType`} element={<ProductWithKind />} />
-            <Route path={`/home/list-order`} element={<ListOrder />} />
-            <Route path={`/user-info/:userId`} element={<Info />} />
+
             <Route element={
                 <Authentication
                     allowedRoles={[
@@ -38,8 +37,10 @@ function App() {
                     ]}
                 />
             }>
+                <Route path={`/home/list-order`} element={<ListOrder />} />
+                <Route path={`/user-info/:userId`} element={<Info />} />
                 <Route element={<AuthorOfCustomer />}>
-                    <Route path={`/detail`} element={<DetailProduct />} />
+                    <Route path={`/user-info/:userId`} element={<Info />} />
                 </Route>
             </Route>
         </Routes>
