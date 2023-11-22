@@ -14,6 +14,7 @@ import HavingNoResult from "./component/search/HavingNoResult";
 import ProductWithKind from "./component/layout/ProductWithKind";
 import SearchPage from "./component/search/SearchPage";
 import ListOrder from "./component/order/ListOrder";
+import Info from "./component/user/Info";
 function App() {
     return (
         <Routes>
@@ -28,6 +29,7 @@ function App() {
             <Route path={"/home/search/"} element={<SearchPage />} />
             <Route path={`/home/list-product/:nameType`} element={<ProductWithKind />} />
             <Route path={`/home/list-order`} element={<ListOrder />} />
+            <Route path={`/user-info/:userId`} element={<Info />} />
             <Route element={
                 <Authentication
                     allowedRoles={[

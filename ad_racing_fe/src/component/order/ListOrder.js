@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineRollback} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import {FaPlus} from "react-icons/fa";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 
 const ListOrder = () => {
     const [invoices, setInvoices] = useState([]);
@@ -50,6 +52,7 @@ const ListOrder = () => {
 
     return (
         <>
+            <Header/>
             <div>
                 <h1 className="title-employee text-center">Lịch sử bán hàng</h1>
             </div>
@@ -186,6 +189,7 @@ const ListOrder = () => {
                     </Link>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }
