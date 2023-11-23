@@ -163,7 +163,7 @@ function DetailProduct() {
                                                 {" "}
                                                 <button
                                                     onClick={() => handleMinus()}
-                                                    className="minus"
+                                                    className="minus btn btn-outline-primary mx-2"
                                                 >-</button>
                                                 <input
                                                     id="quantity-value"
@@ -177,7 +177,7 @@ function DetailProduct() {
                                                 />
                                                 <button
                                                     onClick={() => handlePlus()}
-                                                    className="plus"
+                                                    className="plus btn btn-outline-primary mx-2"
                                                 >+</button>
                                                 <br/>
                                                 <button className="btn btn-danger text-uppercase mr-2 px-4 mt-4"
