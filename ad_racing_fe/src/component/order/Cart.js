@@ -240,10 +240,25 @@ function Cart() {
                                                 <span><strong>{currency(total)}</strong></span>
                                             </li>
                                         </ul>
+                                        {/*<div>*/}
+                                        {/*    {checkout ? (<Paypal propData1={total} proData2={cartDetail}/>) : (*/}
+                                        {/*        <button onClick={() => setCheckout(true)} type="button"*/}
+                                        {/*                className={"btn btn-outline-primary float-end"}>Thanh toán</button>)}*/}
+                                        {/*</div>*/}
                                         <div>
-                                            {checkout ? (<Paypal propData1={total} proData2={cartDetail}/>) : (
-                                                <button onClick={() => setCheckout(true)} type="button"
-                                                        className={"btn btn-outline-primary float-end"}>Thanh toán</button>)}
+                                            {cartDetail && cartDetail.length > 0 ? (
+                                                checkout ? (
+                                                    <Paypal propData1={total} proData2={cartDetail} />
+                                                ) : (
+                                                    <button
+                                                        onClick={() => setCheckout(true)}
+                                                        type="button"
+                                                        className={"btn btn-outline-primary float-end"}
+                                                    >
+                                                        Thanh toán
+                                                    </button>
+                                                )
+                                            ) : null}
                                         </div>
                                     </div>
                                 </div>
