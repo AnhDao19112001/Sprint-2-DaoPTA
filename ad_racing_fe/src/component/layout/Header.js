@@ -92,7 +92,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <NavLink className="navbar-brand mt-2 mt-lg-0" to={`/home`}>
                             <img
-                                src="AD_RACING_logo.png"
+                                src="/AD_RACING_logo.png"
                                 height={70}
                                 width={100}
                                 alt="AD RACING"
