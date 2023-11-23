@@ -125,4 +125,38 @@ public class AppUserController {
         }
         return ResponseEntity.ok().body(appUser);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getIdCustomer(@PathVariable Long id){
+        AppUser appUser = appUserService.findByIdCustomer(id);
+        if (appUser == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không có dữ liệu!");
+        }
+        return ResponseEntity.ok().body(appUser);
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Map<String,String>> updateCustomer(@Valid @RequestBody AppUserDto appUserDto,
+                                                             @PathVariable Long id,
+                                                             BindingResult bindingResult){
+        AppUser appUser = appUserService.findByIdCustomer(id);
+        new AppUserDto().validate(appUserDto,bindingResult);
+        Map<String,String> errors = new HashMap<>();
+        if (bindingResult.hasErrors()){
+            for (FieldError e: bindingResult.getFieldErrors()) {
+                errors.put(e.getField(),e.getDefaultMessage());
+            }
+        }
+        if (errors.size() != 0){
+            return new ResponseEntity<>(errors,HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (appUser == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            BeanUtils.copyProperties(appUserDto,appUser);
+            appUser.setId(id);
+            appUserService.updateCustomer(appUser);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

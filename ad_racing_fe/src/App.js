@@ -29,7 +29,7 @@ function App() {
             <Route path={`/home/search/:nameProduct`} element={<SearchPage />} />
             <Route path={"/home/search/"} element={<SearchPage />} />
             <Route path={`/home/list-product/:nameType`} element={<ProductWithKind />} />
-
+            <Route path={`/user-info/:userId`} element={<Info />} />
             <Route element={
                 <Authentication
                     allowedRoles={[
@@ -43,6 +43,16 @@ function App() {
                 <Route path={`/user-info/:userId`} element={<Info />} />
                 <Route element={<AuthorOfCustomer />}>
                     <Route path={`/user-info/:userId`} element={<Info />} />
+                    <Route path={`/login`} element={<Login/>}/>
+                    <Route path={`/register`} element={<Register/>}/>
+                    <Route path={`/cart`} element={<Cart/>}/>
+                    <Route path={`/details/:idProduct`} element={<DetailProduct/>}/>
+                    <Route path={`/403`} element={<Error />}/>
+                    <Route path={`/home`} element={<HomePage />}/>
+                    <Route path={`/404`} element={<HavingNoResult />}/>
+                    <Route path={`/home/search/:nameProduct`} element={<SearchPage />} />
+                    <Route path={"/home/search/"} element={<SearchPage />} />
+                    <Route path={`/home/list-product/:nameType`} element={<ProductWithKind />} />
                 </Route>
             </Route>
         </Routes>

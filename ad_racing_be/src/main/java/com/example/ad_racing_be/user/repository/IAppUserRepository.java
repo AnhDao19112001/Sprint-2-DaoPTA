@@ -90,4 +90,19 @@ public interface IAppUserRepository extends JpaRepository<AppUser, Long> {
                              @Param("roleId") Long roleId, @Param("address") String address,
                                  @Param("email") String email, @Param("fullName") String fullName,
                                  @Param("image") String image, @Param("phone") String phone);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE sprint_2_ad_racing.app_user " +
+            "SET full_name = :fullName, email = :email, " +
+            " address = :address, phone = :phone " +
+            "WHERE id =:id and flag_deleted = false",nativeQuery = true)
+    void updateCustomer(@Param("fullName") String fullName,
+                        @Param("email") String email,
+                        @Param("address") String address,
+                        @Param("phone") String phone,
+                        @Param("id") Long id);
+
+    @Query(value = "SELECT * FROM app_user where id = :id AND flag_deleted = false",nativeQuery = true)
+    AppUser findCustomerById(Long id);
 }

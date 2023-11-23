@@ -59,15 +59,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/product/**",
                         "/api/type/list",
                         "/api/cart-detail/**",
-                        "/api/order/**"
+                        "/api/order/**",
+                        "/api/user/**"
                 ).permitAll()
                 .antMatchers(
 
                 )
 
-                .hasAnyAuthority("ROLE_ADMIN")
+                .hasAnyAuthority("ROLE_ADMIN" , "ROLE_CUSTOMER")
                 .antMatchers(
-                        "/api/order/list"
                         //Authen Role admin and customer
 
                 ).hasAnyAuthority("ROLE_ADMIN")

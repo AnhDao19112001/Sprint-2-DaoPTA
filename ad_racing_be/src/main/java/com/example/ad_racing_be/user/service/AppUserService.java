@@ -66,4 +66,16 @@ public class AppUserService implements IAppUserService {
     public AppUser findAppUserIdByUserName(String userName) {
         return appUserRepository.findIdByUserName(userName);
     }
+
+    @Override
+    public void updateCustomer(AppUser appUser) {
+        appUserRepository.updateCustomer(appUser.getFullName(),
+                appUser.getEmail(), appUser.getAddress(),
+                appUser.getPhone(), appUser.getId());
+    }
+
+    @Override
+    public AppUser findByIdCustomer(Long id) {
+        return appUserRepository.findCustomerById(id);
+    }
 }

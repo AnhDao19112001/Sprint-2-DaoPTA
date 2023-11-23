@@ -36,3 +36,16 @@ export const checkRollAppUser = (roleName) => {
         return checkRole;
     }
 }
+
+export const checkIdCustomers = async (id) => {
+    try {
+        const result = await axios.get(`http://localhost:8080/api/user/${id}`);
+        return result.data;
+    } catch (error){
+        console.log(error);
+    }
+}
+
+export const updateCustomerById = async (appUser) => {
+    await axios.patch(`http://localhost:8080/api/user/update/${appUser.id}`,appUser);
+}

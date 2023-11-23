@@ -5,9 +5,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface IAppUserService extends UserDetailsService {
     Boolean existsByUsername(String userName);
-
     void createNewAppUser(AppUser appUser, String role);
-
     Boolean logout(String userName);
     AppUser findAppUserIdByUserName(String userName);
+    void updateCustomer(AppUser appUser);
+
+    AppUser findByIdCustomer(Long id);
 }
