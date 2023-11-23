@@ -4,6 +4,7 @@ import {getOrderDetails} from "../../service/cart/Orders";
 import Header from "../layout/Header";
 import {getIdByUserName, infoAppUserByJwtToken} from "../../service/user/UserService";
 import {getIdProduct} from "../../service/product/ProductService";
+import Footer from "../layout/Footer";
 
 function OrderDetail() {
     const [orderDetails, setOrderDetails] = useState([]);
@@ -18,7 +19,7 @@ function OrderDetail() {
         }
     };
     const findOrderDetais = async () => {
-        if(param.idOrder != null){
+        if (param.idOrder != null) {
             const data = await getOrderDetails(param.idOrder);
             console.log(data);
             setOrderDetails(data);
@@ -30,27 +31,27 @@ function OrderDetail() {
         findOrderDetais();
     }, [param.idOrder]);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchData();
-    },[])
+    }, [])
     const currency = (money) => {
         return new Intl.NumberFormat("vi-VN").format(money);
     };
 
     return (
         <>
-            <Header onInputChange={() => {}}/>
+            <Header onInputChange={() => {
+            }}/>
             <div id="hannah" className="container mt-5">
-                {/*<div style={{marginTop: "50px"}} className=" h-auto">*/}
-                {/*    <div className="d-flex justify-content-center align-items-center flex-column">*/}
-                {/*        <p className="col col-md-5 col-8 mb-3 text-center">*/}
-                {/*            Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! Vui lòng xem chi tiết*/}
-                {/*            đơn hàng bên dưới nhé!*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
                 <div className="container-fluid p-1 position-relative h-auto">
+                    <div className=" h-auto">
+                        <div className="d-flex justify-content-center align-items-center flex-column">
+                            <p className="col col-md-5 col-8 mb-3 text-center">
+                                Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi! Vui lòng xem chi tiết
+                                đơn hàng bên dưới nhé!
+                            </p>
+                        </div>
+                    </div>
                     <h1
                         className="text-center mb-5 mx-auto "
                         style={{color: "black"}}>
@@ -58,7 +59,7 @@ function OrderDetail() {
                     </h1>
 
                     {orderDetails.length > 0 && (
-                        <div className="container-fluid w-100" style={{marginLeft:200}}>
+                        <div className="container-fluid w-100" style={{marginLeft: 200}}>
                             <div className="row">
                                 <div className=" col col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0">
                                     <div className=" d-flex flex-column justify-content-center align-items-center">
@@ -127,10 +128,9 @@ function OrderDetail() {
                                         <div
                                             className="container-fluid d-flex flex-column align-items-start justify-content-center">
                                             <Link to="/home/list-order" className="btn btn-outline-dark mb-5">
-                                                ← Tiếp tục xem sản phẩm
+                                                ← Trở về
                                             </Link>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +138,7 @@ function OrderDetail() {
                     )}
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

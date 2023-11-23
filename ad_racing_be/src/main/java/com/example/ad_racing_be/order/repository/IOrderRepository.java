@@ -56,7 +56,9 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "ORDER BY o.date_time asc ", nativeQuery = true)
     List<Orders> listOrders(@Param("appUserId") Long appUserId);
 
-    @Query(value = "SELECT\n" +
+    @Query(value = "SELECT\n " +
+            " od.id as idOrder, " +
+            " o.id as id, " +
             "            o.code AS code,\n" +
             "            MAX(app.full_name) AS fullName,\n" +
             "            o.date_time AS orderDate,\n" +
@@ -75,23 +77,25 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     Page<IOrderProjection> getAllListOrder(Pageable pageable);
 
     @Query(value = "SELECT\n" +
-            "            o.code AS code,\n" +
-            "            MAX(app.full_name) AS fullName,\n" +
-            "            o.date_time AS orderDate,\n" +
+            " od.id as idOrder , " +
+            " o.id as id," +
+            "            o.code AS code, " +
+            "            MAX(app.full_name) AS fullName, " +
+            "            o.date_time AS orderDate, " +
             "            CASE\n" +
-            "            WHEN app.id IS NULL THEN\n" +
-            "            sum(od.current_price * od.quantity)\n" +
-            "            WHEN app.id IS NOT NULL THEN\n" +
-            "            sum(od.current_price * od.quantity) END AS orderDetailPrice\n" +
-            "             FROM\n" +
-            "             orders o\n" +
-            "            LEFT JOIN app_user app on app.id = o.app_user_id\n" +
-            "            LEFT JOIN user_role ur on app.id = ur.app_user_id\n" +
-            "            LEFT OUTER JOIN app_role ar on ar.id = ur.app_role_id\n" +
-            "            LEFT JOIN order_detail od on o.id = od.id_order\n" +
-            "             where o.flag_deleted = false\n" +
-            "             and o.date_time >= :startDateTime AND o.date_time <= :endDateTime\n" +
-            "GROUP BY o.code, o.date_time", nativeQuery = true)
+            "            WHEN app.id IS NULL THEN " +
+            "            sum(od.current_price * od.quantity) " +
+            "            WHEN app.id IS NOT NULL THEN " +
+            "            sum(od.current_price * od.quantity) END AS orderDetailPrice " +
+            "             FROM " +
+            "             orders o " +
+            "            LEFT JOIN app_user app on app.id = o.app_user_id " +
+            "            LEFT JOIN user_role ur on app.id = ur.app_user_id " +
+            "            LEFT OUTER JOIN app_role ar on ar.id = ur.app_role_id " +
+            "            JOIN order_detail od on od.id_order = o.id " +
+            "             where o.flag_deleted = false " +
+            "             and o.date_time >= :startDateTime AND o.date_time <= :endDateTime " +
+            "GROUP BY o.code, o.date_time, o.id, od.id", nativeQuery = true)
     Page<IOrderProjection> findByDateTimeRange(Pageable pageable,
                                                @Param("startDateTime") LocalDate startDateTime,
                                                @Param("endDateTime") LocalDate endDateTime);

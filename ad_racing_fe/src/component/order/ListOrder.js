@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
-import {listOrder} from "../../service/cart/Orders";
+import {getOrderDetails, listOrder} from "../../service/cart/Orders";
 import Swal from "sweetalert2";
-import {format, parseISO} from "date-fns";
 import {Field, Form, Formik} from "formik";
 import * as Yup from "yup";
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineRollback} from "react-icons/ai";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
@@ -18,10 +17,10 @@ const ListOrder = () => {
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [optionSort, setOptionSort] = useState("");
-
     const loadAllInvoice = async (pageList, dateTime, sortBy) => {
         try {
             const tmpInvoice = await listOrder(pageList, dateTime, sortBy);
+            console.log(tmpInvoice)
             setInvoices(tmpInvoice.data.content);
             setPage(tmpInvoice.data.pageable.pageNumber);
             setTotalPage(tmpInvoice.data.totalPages);
@@ -122,9 +121,13 @@ const ListOrder = () => {
                                 </thead>
                                 <tbody>
                                 {invoices.length !== 0 ?
-                                    invoices.map((invoice, index) => (
+                                    invoices.map((invoice) => (
                                             <tr>
-                                                <td className={`px-3 py-3 `}>{invoice.fullName}</td>
+                                                <td className={`px-3 py-3 `}>
+                                                    <Link to={`/order-detail/${invoice.id}`}>
+                                                    {invoice.fullName}
+                                                    </Link>
+                                                </td>
                                                 <td className={`px-3 py-3 `}>{invoice.orderDate}</td>
                                                 <td className={`px-3 py-3 `}>{new Intl.NumberFormat("vi-VN").format(
                                                     invoice.orderDetailPrice)}</td>

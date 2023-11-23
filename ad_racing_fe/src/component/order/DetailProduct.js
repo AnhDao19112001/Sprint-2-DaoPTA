@@ -101,6 +101,20 @@ function DetailProduct() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="images p-3">
+                                            <div className="carousel-inner">
+                                                {images.length > 0 &&
+                                                    images.map((el, index) => {
+                                                        return (
+                                                            <div
+                                                                className={`carousel-item ${
+                                                                    index === activeIndex ? "active" : ""
+                                                                }`}
+                                                            >
+                                                                <img src={el} className="d-block w-100" alt="..."/>
+                                                            </div>
+                                                        );
+                                                    })}
+                                            </div>
                                             <div className="text-center p-4">
                                                 {images.length > 0 && images.map((el, index) => {
                                                     return (
@@ -118,40 +132,6 @@ function DetailProduct() {
                                                     );
                                                 })}
                                             </div>
-                                            <div className="carousel-inner">
-                                                {images.length > 0 &&
-                                                    images.map((el, index) => {
-                                                        return (
-                                                            <div
-                                                                className={`carousel-item ${
-                                                                    index === activeIndex ? "active" : ""
-                                                                }`}
-                                                            >
-                                                                <img src={el} className="d-block w-100" alt="..."/>
-                                                            </div>
-                                                        );
-                                                    })}
-                                            </div>
-                                            <button
-                                                className="carousel-control-prev"
-                                                type="button"
-                                                data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide="prev">
-                                            <span
-                                                className="carousel-control-prev-icon"
-                                                aria-hidden="true"/>
-                                                <span className="visually-hidden">Lùi</span>
-                                            </button>
-                                            <button
-                                                className="carousel-control-next"
-                                                type="button"
-                                                data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide="next">
-                                            <span
-                                                className="carousel-control-next-icon"
-                                                aria-hidden="true"/>
-                                                <span className="visually-hidden">Tới</span>
-                                            </button>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
