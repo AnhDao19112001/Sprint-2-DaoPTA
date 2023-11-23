@@ -52,7 +52,7 @@ function DetailProduct() {
                         idProduct,
                         parseInt(quantity));
                     console.log(result);
-                    const res = await createCartDetail(quantity,isLogged.sub, idProduct);
+                    const res = await createCartDetail(quantity, isLogged.sub, idProduct);
                     dispatch(getAllCarts(user.sub));
                     Swal.fire("Thêm mới sản phẩm thành công!", "", "success");
                 } catch {
@@ -140,7 +140,7 @@ function DetailProduct() {
                                                 <div className="d-flex align-items-center">
                                                     {" "}
                                                     <i className="fa fa-long-arrow-left"/>{" "}
-                                                    <Link to={`/home`} className="ml-1">Quay về shop</Link>{" "}
+                                                    <Link to={`/home`} className="ml-1">← Về trang chính</Link>{" "}
                                                 </div>
                                                 {" "}
                                                 <i className="fa fa-shopping-cart text-muted"/>
@@ -164,21 +164,23 @@ function DetailProduct() {
                                                 <button
                                                     onClick={() => handleMinus()}
                                                     className="minus btn btn-outline-primary mx-2"
-                                                >-</button>
+                                                >-
+                                                </button>
                                                 <input
                                                     id="quantity-value"
                                                     className="quantity fw-bold text-black"
                                                     min="1"
                                                     max="20"
                                                     name="quantity"
-                                                    style={{textAlign:"center"}}
+                                                    style={{textAlign: "center"}}
                                                     defaultValue={1}
                                                     type="number"
                                                 />
                                                 <button
                                                     onClick={() => handlePlus()}
                                                     className="plus btn btn-outline-primary mx-2"
-                                                >+</button>
+                                                >+
+                                                </button>
                                                 <br/>
                                                 <button className="btn btn-danger text-uppercase mr-2 px-4 mt-4"
                                                         onClick={() => addToCarts(product.idProduct)}>
@@ -191,6 +193,7 @@ function DetailProduct() {
                                         </div>
                                     </div>
                                 </div>
+                                <div className="text-center h3"> Sản phẩm khác </div>
                             </div>
                         </div>
                     }

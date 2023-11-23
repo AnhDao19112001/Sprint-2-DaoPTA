@@ -105,13 +105,15 @@ const ProductWithKind = () => {
                                         </div>
                                         <div className="d-flex ms-5 gap-3 fs-6 align-items-center">
                                             <span>Sắp xếp theo: </span>
-                                            <select value={sortBy} onChange={handleSortByChange}>
+                                            <select value={sortBy} onChange={handleSortByChange}
+                                                    className="form-select form-select-ms" style={{width:"30%"}}>
                                                 <option value="price">Giá</option>
                                                 <option value="nameProduct">Tên sản phẩm</option>
                                             </select>
 
-                                            <span>Cách sắp xếp: </span>
-                                            <select
+                                            <span className="ms-5 float-end">Cách sắp xếp: </span>
+                                            <select className="form-select form-select-ms"
+                                                    style={{width:"30%"}}
                                                 value={sort}
                                                 onChange={handleSortChange}
                                             >
