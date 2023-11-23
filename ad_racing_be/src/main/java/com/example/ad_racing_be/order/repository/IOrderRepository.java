@@ -79,7 +79,7 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "            LEFT JOIN user_role ur on app.id = ur.app_user_id\n" +
             "            LEFT OUTER JOIN app_role ar on ar.id = ur.app_role_id\n" +
             "            LEFT JOIN order_detail od on o.id = od.id_order\n" +
-            "GROUP BY o.code, o.date_time ", nativeQuery = true)
+            "GROUP BY o.code, o.date_time, o.id ", nativeQuery = true)
     Page<IOrderProjection> getAllListOrder(Pageable pageable);
 
     @Query(value = "SELECT\n" +
@@ -98,10 +98,10 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
             "            LEFT JOIN app_user app on app.id = o.app_user_id " +
             "            LEFT JOIN user_role ur on app.id = ur.app_user_id " +
             "            LEFT OUTER JOIN app_role ar on ar.id = ur.app_role_id " +
-            "            JOIN order_detail od on od.id_order = o.id " +
+            "            LEFT JOIN order_detail od on od.id_order = o.id " +
             "             where o.flag_deleted = false " +
             "             and o.date_time >= :startDateTime AND o.date_time <= :endDateTime " +
-            "GROUP BY o.code, o.date_time, o.id, od.id", nativeQuery = true)
+            "GROUP BY o.code, o.date_time, od.id", nativeQuery = true)
     Page<IOrderProjection> findByDateTimeRange(Pageable pageable,
                                                @Param("startDateTime") LocalDate startDateTime,
                                                @Param("endDateTime") LocalDate endDateTime);
