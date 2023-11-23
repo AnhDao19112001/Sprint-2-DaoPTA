@@ -39,7 +39,7 @@ function App() {
                 />
             }>
                 <Route path={`/home/list-order`} element={<ListOrder />} />
-                <Route path={`/order-detail`} element={<OrderDetail />} />
+                <Route path={`/order-detail/:idOrder`} element={<OrderDetail />} />
                 <Route path={`/user-info/:userId`} element={<Info />} />
                 <Route element={<AuthorOfCustomer />}>
                     <Route path={`/user-info/:userId`} element={<Info />} />

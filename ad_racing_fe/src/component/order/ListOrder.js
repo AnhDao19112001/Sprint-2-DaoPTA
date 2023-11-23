@@ -51,7 +51,7 @@ const ListOrder = () => {
 
     return (
         <>
-            <Header/>
+            <Header onInputChange={() => {}}/>
             <div>
                 <h1 className="title-employee text-center">Lịch sử bán hàng</h1>
             </div>

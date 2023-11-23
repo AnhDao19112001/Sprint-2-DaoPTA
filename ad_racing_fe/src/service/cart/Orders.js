@@ -10,6 +10,7 @@ export const listOrder = async (page, orderDto,sortBy) => {
     return result;
 }
 export const getOrderDetails = async (idOrder) => {
-    const result = await axios.get(`http://localhost:8080/api/order/get-order-detail?idOrder=${idOrder}`)
+    const result = await axios.get(`http://localhost:8080/api/order/get-order-detail?idOrder=${idOrder}`);
+    console.log(result.data);
     return result.data;
 }

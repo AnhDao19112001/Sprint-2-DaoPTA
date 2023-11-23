@@ -5,7 +5,6 @@ const cartReducer = (carts = initState,action) => {
 
     switch (type){
         case "GET_ALL_CART":
-            console.log(carts)
             return payload;
         default:
             return carts
