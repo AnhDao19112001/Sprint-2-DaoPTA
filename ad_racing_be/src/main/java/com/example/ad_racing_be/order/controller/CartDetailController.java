@@ -62,7 +62,7 @@ public class CartDetailController {
                                            @RequestParam("inputQuantity") Long inputQuantity){
         ProductProjection projection = cartDetailService.getProductToCheck(idProduct);
         if (productService.existsByIdAndFlagDeletedIsFalse(idProduct)
-            && projection.getQuantity() >= inputQuantity){
+            && projection.getQuantity() >= inputQuantity ){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

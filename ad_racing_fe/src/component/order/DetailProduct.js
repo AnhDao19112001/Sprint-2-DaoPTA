@@ -161,26 +161,17 @@ function DetailProduct() {
                                             </div>
                                             <div className="cart mt-4 align-items-center">
                                                 {" "}
-                                                <button
-                                                    onClick={() => handleMinus()}
-                                                    className="minus btn btn-outline-primary mx-2"
-                                                >-
-                                                </button>
+                                                <span style={{marginRight:20,color:"red"}}>Vui lòng nhập số lượng cần mua:</span>
                                                 <input
                                                     id="quantity-value"
                                                     className="quantity fw-bold text-black"
                                                     min="1"
-                                                    max="20"
+                                                    max="99"
                                                     name="quantity"
                                                     style={{textAlign: "center"}}
                                                     defaultValue={1}
                                                     type="number"
                                                 />
-                                                <button
-                                                    onClick={() => handlePlus()}
-                                                    className="plus btn btn-outline-primary mx-2"
-                                                >+
-                                                </button>
                                                 <br/>
                                                 <button className="btn btn-danger text-uppercase mr-2 px-4 mt-4"
                                                         onClick={() => addToCarts(product.idProduct)}>
