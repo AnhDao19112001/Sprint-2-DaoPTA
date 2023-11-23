@@ -3,7 +3,6 @@ import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import * as userService from "../../service/user/UserService"
 import Swal from "sweetalert2";
-import Dropdown from 'react-bootstrap/Dropdown';
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import * as typeProduct from "../../service/type/TypeProduct";
 import {CiSearch} from "react-icons/ci";
@@ -20,8 +19,8 @@ const Header = ({ inputSearch, onInputChange }) => {
     const [nameType, setNameType] = useState([]);
     const carts = useSelector((state) => state.cartReducer);
     const roleAdmin = userService.checkRollAppUser("ROLE_ADMIN");
-    const roleCustomer = userService.checkRollAppUser("ROLE_CUSTOMER");
     const dispatch = useDispatch();
+
 
     const getUserName = async () => {
         const result = await userService.infoAppUserByJwtToken();
@@ -184,7 +183,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                                             <BiUserCircle className="me-3 ms-0" size={25} />
                                             <div className="dropdown-text">Thông tin</div>
                                         </Link>
-                                        {(roleAdmin) && (
+                                        {roleAdmin &&
                                             <Link
                                                 to={"/home/list-order"}
                                                 className="user-dropdown-item"
@@ -192,7 +191,7 @@ const Header = ({ inputSearch, onInputChange }) => {
                                                 <BiCog className="me-3 ms-0" size={25} />
                                                 <div className="dropdown-text">Lịch sử bán</div>
                                             </Link>
-                                        )}
+                                        }
                                         <Link className="user-dropdown-item">
                                             <BiLogOutCircle className="me-3 ms-0" size={25} />
                                             <div

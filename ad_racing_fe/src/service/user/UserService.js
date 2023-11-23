@@ -28,7 +28,7 @@ export const getIdByUserName = async (userName) => {
     return result;
 }
 
-export const checkRollAppUser = async (roleName) => {
+export const checkRollAppUser = (roleName) => {
     const jwtToken = localStorage.getItem("JWT");
     if (jwtToken){
         const roleList = jwtDecode(jwtToken).roleList;
