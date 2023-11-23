@@ -5,6 +5,8 @@ import com.example.ad_racing_be.order.model.Orders;
 import com.example.ad_racing_be.order.repository.ICartDetailRepository;
 import com.example.ad_racing_be.order.repository.IOrderRepository;
 import com.example.ad_racing_be.order.service.IOrderService;
+import com.example.ad_racing_be.product.model.Product;
+import com.example.ad_racing_be.product.repository.IProductRepository;
 import com.example.ad_racing_be.user.model.AppUser;
 import com.example.ad_racing_be.user.repository.IAppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import java.util.List;
 @Service
 public class OrderService implements IOrderService {
     @Autowired
+    private IProductRepository productRepository;
+    @Autowired
     private IOrderRepository orderRepository;
     @Autowired
     private ICartDetailRepository cartDetailRepository;
@@ -32,9 +36,15 @@ public class OrderService implements IOrderService {
         AppUser appUser = appUserRepository.findAppUserByName(userName);
         orderRepository.createOrders(formattedDate,appUser.getId());
         Long isOrders = orderRepository.getIdMaxOrder();
+        List<Product> products = productRepository.findAll();
         for (CartDetailDto o: oderDetailDto.getCartDetailDtoList()) {
             cartDetailRepository.deletedCart(o.getIdProduct(), appUser.getId());
             orderRepository.createOderDetail(o.getPrice(),isOrders,o.getQuantity(),o.getIdProduct());
+            for (Product p: products) {
+                if (p.getIdProduct() == o.getIdProduct()){
+                    orderRepository.updateProduct(p.getQuantity() - o.getQuantity(), o.getIdProduct());
+                }
+            }
         }
     }
 

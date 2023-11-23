@@ -33,6 +33,12 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
                           @Param("quantity") Integer quantity,
                           @Param("idProduct") Long idProduct);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update product set quantity = :quantity where id_product = :idProduct", nativeQuery = true)
+    void updateProduct(@Param("quantity") Integer quantity,
+                       @Param("idProduct") Long idProduct);
+
     @Query(value = "SELECT max(id) FROM orders", nativeQuery = true)
     Long getIdMaxOrder();
 
